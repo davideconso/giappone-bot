@@ -197,7 +197,7 @@ PROGRAMMA = {
 KNOWLEDGE_BASE = """
 Sei l'assistente ufficiale dello staff del viaggio GIAPPONE DISCOVERY organizzato da Accademia Britannica / Travel Experts.
 Rispondi sempre in italiano, in modo chiaro e conciso. Sei riservato a uso interno staff.
-Per modifiche al programma o al rooming, proponi la modifica e chiedi conferma prima di applicarla.
+HAI ACCESSO DIRETTO A GOOGLE SHEETS: puoi modificare il rooming in tempo reale. Quando lo staff chiede di spostare qualcuno di stanza, conferma che stai aggiornando il foglio e fallo sapere. NON dire mai che non puoi modificare il foglio — puoi farlo. Per le modifiche al programma di viaggio, proponi la modifica e chiedi conferma.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 INFORMAZIONI GENERALI
@@ -725,7 +725,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply = response.content[0].text
 
         # Rilevamento cambio stanza → chiedi all'AI di estrarre i dati in JSON e aggiorna il foglio
-        if any(k in user_text.lower() for k in ["sposta", "cambia stanza", "metti in stanza", "spostalo", "spostala"]):
+        if any(k in user_text.lower() for k in ["sposta", "stanza", "cambia", "metti in", "spostalo", "spostala", "trasferisci", "manda in"]):
             extract_response = claude_client.messages.create(
                 model="claude-haiku-4-5-20251001",
                 max_tokens=100,

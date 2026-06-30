@@ -45,37 +45,183 @@ def get_sheets_client():
     )
     return gspread.authorize(creds)
 
+def _get_section_ranges(all_values):
+    """
+    Identifica le sezioni del foglio. Ogni riga con 'STANZA' come intestazione
+    apre una nuova sezione (es. Kyoto e Tokyo sullo stesso tab).
+    Restituisce lista di dict con: header_row, stanza_col, end_row.
+    """
+    sections = []
+    for i, row in enumerate(all_values):
+        for j, cell in enumerate(row):
+            if cell.strip().upper() == "STANZA":
+                sections.append({"header_row": i, "stanza_col": j})
+                break  # una sola colonna STANZA per riga
+    for idx in range(len(sections)):
+        sections[idx]["end_row"] = (
+            sections[idx + 1]["header_row"] if idx + 1 < len(sections) else len(all_values)
+        )
+    return sections
+
+def _conta_stanza(all_values, sec, stanza_num_str):
+    """Conta quante righe nella sezione hanno esattamente quel numero di stanza."""
+    count = 0
+    stanza_col = sec["stanza_col"]
+    for i in range(sec["header_row"] + 1, sec["end_row"]):
+        if i >= len(all_values):
+            break
+        row = all_values[i]
+        if len(row) > stanza_col and row[stanza_col].strip() == stanza_num_str.strip():
+            count += 1
+    return count
+
 def sposta_in_sheet(cognome: str, nome: str, nuova_stanza: str) -> str:
-    """Cerca cognome+nome in tutti i fogli rooming e aggiorna la colonna STANZA."""
+    """
+    Aggiorna STANZA per tutte le occorrenze di cognome+nome.
+    Controlla capienza: blocca se la stanza destinazione è già piena
+    (capienza derivata dall'occupazione attuale del foglio, opzione B).
+    """
     try:
         gc = get_sheets_client()
         cognome_up = cognome.strip().upper()
-        nome_up = nome.strip().upper()
+        nome_up    = nome.strip().upper()
+        aggiornamenti = []
+        blocchi = []
+
         for sheet_id in ROOMING_SHEET_IDS:
             sh = gc.open_by_key(sheet_id)
             for ws in sh.worksheets():
                 all_values = ws.get_all_values()
-                for i, row in enumerate(all_values):
-                    # Cerca cognome in qualsiasi colonna da 0 a 4
-                    for col_cognome in range(5):
-                        if (len(row) > col_cognome + 1 and
-                            row[col_cognome].strip().upper() == cognome_up and
-                            row[col_cognome + 1].strip().upper() == nome_up):
-                            # Cerca la colonna STANZA nella riga header sopra
-                            stanza_col = None
-                            for h_row in all_values[max(0, i-10):i]:
-                                for j, cell in enumerate(h_row):
-                                    if cell.strip().upper() == "STANZA":
-                                        stanza_col = j + 1  # 1-indexed per gspread
-                                        break
-                                if stanza_col:
-                                    break
-                            if stanza_col is None:
-                                stanza_col = 2  # fallback: colonna B
-                            ws.update_cell(i + 1, stanza_col, nuova_stanza)
-                            return (f"✅ *{cognome} {nome}* → stanza *{nuova_stanza}*\n"
-                                    f"Tab: {ws.title} | Riga: {i+1} | Col STANZA: {stanza_col}")
-        return f"⚠️ {cognome} {nome} non trovato/a in nessun foglio rooming."
+                sections = _get_section_ranges(all_values)
+
+                for sec_idx, sec in enumerate(sections):
+                    stanza_col = sec["stanza_col"]
+                    label = f"{ws.title} sez.{sec_idx + 1}"
+
+                    # Cerca la persona in questa sezione
+                    persona_row  = None
+                    stanza_attuale = None
+                    for i in range(sec["header_row"] + 1, sec["end_row"]):
+                        if i >= len(all_values):
+                            break
+                        row = all_values[i]
+                        for col_c in range(min(5, len(row) - 1)):
+                            if (row[col_c].strip().upper() == cognome_up and
+                                    row[col_c + 1].strip().upper() == nome_up):
+                                persona_row  = i
+                                stanza_attuale = row[stanza_col] if len(row) > stanza_col else ""
+                                break
+                        if persona_row is not None:
+                            break
+
+                    if persona_row is None:
+                        continue
+
+                    # Controllo capienza (opzione B: conta persone dal foglio)
+                    count_target = _conta_stanza(all_values, sec, nuova_stanza)
+                    count_source = _conta_stanza(all_values, sec, stanza_attuale) if stanza_attuale else 0
+
+                    if count_target >= 4:
+                        blocchi.append(
+                            f"❌ {label}: stanza {nuova_stanza} ha già {count_target} persone "
+                            f"(quadrupla piena). Spostamento bloccato."
+                        )
+                        continue
+
+                    if count_target >= count_source:
+                        blocchi.append(
+                            f"❌ {label}: stanza {nuova_stanza} ha {count_target} persone "
+                            f"(≥ stanza {stanza_attuale} con {count_source}). "
+                            f"Usa /scambia {cognome} COGNOME2 per scambiare tra stanze della stessa capienza."
+                        )
+                        continue
+
+                    # Esegui l'aggiornamento
+                    ws.update_cell(persona_row + 1, stanza_col + 1, nuova_stanza)
+                    aggiornamenti.append(
+                        f"{label}: stanza {stanza_attuale} → {nuova_stanza} (riga {persona_row + 1})"
+                    )
+
+        parts = []
+        if aggiornamenti:
+            parts.append(f"✅ *{cognome} {nome}* → stanza *{nuova_stanza}*\n" + "\n".join(aggiornamenti))
+        if blocchi:
+            parts.append("\n".join(blocchi))
+        if not parts:
+            parts.append(f"⚠️ {cognome} {nome} non trovato/a in nessun foglio rooming.")
+        return "\n\n".join(parts)
+
+    except Exception as e:
+        return f"❌ Errore: {type(e).__name__}: {str(e)[:200]}"
+
+def scambia_in_sheet(cognome1: str, cognome2: str) -> str:
+    """
+    Scambia le stanze di due persone cercate per solo cognome.
+    Funziona sezione per sezione (Kyoto e Tokyo separatamente).
+    Se un cognome è ambiguo (più persone), richiede di usare /sposta col nome completo.
+    """
+    try:
+        gc = get_sheets_client()
+        c1_up = cognome1.strip().upper()
+        c2_up = cognome2.strip().upper()
+        scambi  = []
+        avvisi  = []
+
+        for sheet_id in ROOMING_SHEET_IDS:
+            sh = gc.open_by_key(sheet_id)
+            for ws in sh.worksheets():
+                all_values = ws.get_all_values()
+                sections   = _get_section_ranges(all_values)
+
+                for sec_idx, sec in enumerate(sections):
+                    stanza_col = sec["stanza_col"]
+                    label = f"{ws.title} sez.{sec_idx + 1}"
+                    matches1 = []  # (row_idx, stanza_val, nome_completo)
+                    matches2 = []
+
+                    for i in range(sec["header_row"] + 1, sec["end_row"]):
+                        if i >= len(all_values):
+                            break
+                        row = all_values[i]
+                        for col_c in range(min(5, len(row))):
+                            cell = row[col_c].strip().upper()
+                            stanza_val = row[stanza_col] if len(row) > stanza_col else ""
+                            nome_comp  = " ".join(row[col_c:col_c + 2]).strip() if len(row) > col_c + 1 else row[col_c]
+                            if cell == c1_up:
+                                matches1.append((i, stanza_val, nome_comp))
+                                break
+                            elif cell == c2_up:
+                                matches2.append((i, stanza_val, nome_comp))
+                                break
+
+                    if len(matches1) > 1:
+                        return (f"⚠️ '{cognome1}' è ambiguo: {len(matches1)} persone trovate "
+                                f"({', '.join(m[2] for m in matches1)}). "
+                                f"Specifica anche il nome con /sposta.")
+                    if len(matches2) > 1:
+                        return (f"⚠️ '{cognome2}' è ambiguo: {len(matches2)} persone trovate "
+                                f"({', '.join(m[2] for m in matches2)}). "
+                                f"Specifica anche il nome con /sposta.")
+
+                    if matches1 and matches2:
+                        r1, s1, n1 = matches1[0]
+                        r2, s2, n2 = matches2[0]
+                        if s1 == s2:
+                            avvisi.append(f"ℹ️ {label}: {n1} e {n2} sono già nella stessa stanza {s1}.")
+                        else:
+                            ws.update_cell(r1 + 1, stanza_col + 1, s2)
+                            ws.update_cell(r2 + 1, stanza_col + 1, s1)
+                            scambi.append(f"{label}: *{n1}* {s1}↔{s2} *{n2}*")
+
+        if scambi:
+            msg = "✅ Scambio completato:\n" + "\n".join(scambi)
+            if avvisi:
+                msg += "\n" + "\n".join(avvisi)
+            return msg
+        if avvisi:
+            return "\n".join(avvisi)
+        return f"⚠️ Non ho trovato entrambi i cognomi nei fogli rooming."
+
     except Exception as e:
         return f"❌ Errore: {type(e).__name__}: {str(e)[:200]}"
 
@@ -772,28 +918,49 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         logger.error(f"Errore API: {type(e).__name__}: {e}")
         await update.message.reply_text(f"⚠️ Errore: `{type(e).__name__}: {str(e)[:200]}`", parse_mode="Markdown")
 
-# ─── SPOSTA ROOMING ───────────────────────────────────────────────────────────
+# ─── SPOSTA / SCAMBIA ROOMING ────────────────────────────────────────────────
 async def sposta_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not await check_auth(update):
         return
     # Uso: /sposta COGNOME NOME stanza NUMERO
-    # Esempio: /sposta FERRARA MATTIA stanza 11
     args = context.args
     if len(args) < 4 or args[2].lower() != "stanza":
         await update.message.reply_text(
-            "Uso corretto:\n`/sposta COGNOME NOME stanza NUMERO`\n\nEsempio:\n`/sposta FERRARA MATTIA stanza 11`",
+            "Uso corretto:\n`/sposta COGNOME NOME stanza NUMERO`\n\nEsempio:\n`/sposta FERRARA MATTIA stanza 11`\n\n"
+            "Per scambiare due persone tra stanze della stessa capienza usa:\n`/scambia COGNOME1 COGNOME2`",
             parse_mode="Markdown"
         )
         return
 
-    cognome    = args[0]
-    nome       = args[1]
+    cognome      = args[0]
+    nome         = args[1]
     nuova_stanza = args[3]
 
     await context.bot.send_chat_action(chat_id=update.effective_chat.id, action="typing")
     esito = sposta_in_sheet(cognome, nome, nuova_stanza)
     modifiche_log.append(f"[{date.today()}] /sposta {cognome} {nome} → stanza {nuova_stanza}")
-    await update.message.reply_text(esito)
+    await update.message.reply_text(esito, parse_mode="Markdown")
+
+async def scambia_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not await check_auth(update):
+        return
+    # Uso: /scambia COGNOME1 COGNOME2
+    args = context.args
+    if len(args) < 2:
+        await update.message.reply_text(
+            "Uso corretto:\n`/scambia COGNOME1 COGNOME2`\n\nEsempio:\n`/scambia CIMMINO BUTTINO`\n\n"
+            "Scambia le stanze tra due persone mantenendo la capienza di entrambe le stanze invariata.",
+            parse_mode="Markdown"
+        )
+        return
+
+    cognome1 = args[0]
+    cognome2 = args[1]
+
+    await context.bot.send_chat_action(chat_id=update.effective_chat.id, action="typing")
+    esito = scambia_in_sheet(cognome1, cognome2)
+    modifiche_log.append(f"[{date.today()}] /scambia {cognome1} ↔ {cognome2}: {esito[:80]}")
+    await update.message.reply_text(esito, parse_mode="Markdown")
 
 # ─── AVVIO ────────────────────────────────────────────────────────────────────
 def main():
@@ -806,6 +973,7 @@ def main():
     app.add_handler(CommandHandler("modifiche",modifiche_command))
     app.add_handler(CommandHandler("compleanni", compleanni_command))
     app.add_handler(CommandHandler("sposta",     sposta_command))
+    app.add_handler(CommandHandler("scambia",    scambia_command))
     app.add_handler(CommandHandler("reset",    reset))
     app.add_handler(CallbackQueryHandler(handle_callback))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))

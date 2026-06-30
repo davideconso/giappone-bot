@@ -15,6 +15,7 @@ SETUP (TUTTO GRATIS):
 """
 
 import os
+import json
 import logging
 from datetime import date
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
@@ -23,10 +24,46 @@ from telegram.ext import (
     ContextTypes, filters, CallbackQueryHandler
 )
 import anthropic
+import gspread
+from google.oauth2.service_account import Credentials
 
 # ─── CONFIGURAZIONE ───────────────────────────────────────────────────────────
-TELEGRAM_TOKEN    = os.environ.get("TELEGRAM_TOKEN",    "INSERISCI_QUI_IL_TOKEN")
-ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "INSERISCI_QUI_LA_API_KEY_ANTHROPIC")
+TELEGRAM_TOKEN        = os.environ.get("TELEGRAM_TOKEN",          "INSERISCI_QUI_IL_TOKEN")
+ANTHROPIC_API_KEY     = os.environ.get("ANTHROPIC_API_KEY",       "INSERISCI_QUI_LA_API_KEY_ANTHROPIC")
+GOOGLE_CREDS_JSON     = os.environ.get("GOOGLE_CREDENTIALS_JSON", "")
+ROOMING_SHEET_IDS = [
+    "1kXJUY2Q51cqV1pnzfCekYVq1cXy9xcdrUJAwwWpDgkU",  # Rooming turno 1
+    "1dX9ZtULby3luzCImaFL6qNsI2TuvCflKEejBgVRCMEE",  # Secondo foglio
+]
+
+# ─── GOOGLE SHEETS CLIENT ─────────────────────────────────────────────────────
+def get_sheets_client():
+    creds_dict = json.loads(GOOGLE_CREDS_JSON)
+    creds = Credentials.from_service_account_info(
+        creds_dict,
+        scopes=["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+    )
+    return gspread.authorize(creds)
+
+def sposta_in_sheet(cognome: str, nome: str, nuova_stanza: str) -> str:
+    """Cerca cognome+nome in tutti i fogli rooming e aggiorna la colonna STANZA."""
+    try:
+        gc = get_sheets_client()
+        cognome_up = cognome.strip().upper()
+        nome_up = nome.strip().upper()
+        for sheet_id in ROOMING_SHEET_IDS:
+            sh = gc.open_by_key(sheet_id)
+            for ws in sh.worksheets():
+                all_values = ws.get_all_values()
+                for i, row in enumerate(all_values):
+                    if len(row) >= 5:
+                        if row[3].strip().upper() == cognome_up and row[4].strip().upper() == nome_up:
+                            ws.update_cell(i + 1, 2, nuova_stanza)
+                            return (f"✅ *{cognome} {nome}* spostato/a alla stanza *{nuova_stanza}*\n"
+                                    f"Foglio: {sh.title} — Tab: {ws.title}")
+        return f"⚠️ {cognome} {nome} non trovato/a in nessun foglio rooming."
+    except Exception as e:
+        return f"❌ Errore Google Sheets: {type(e).__name__}: {str(e)[:150]}"
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -698,6 +735,29 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         logger.error(f"Errore API: {type(e).__name__}: {e}")
         await update.message.reply_text(f"⚠️ Errore: `{type(e).__name__}: {str(e)[:200]}`", parse_mode="Markdown")
 
+# ─── SPOSTA ROOMING ───────────────────────────────────────────────────────────
+async def sposta_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not await check_auth(update):
+        return
+    # Uso: /sposta COGNOME NOME stanza NUMERO
+    # Esempio: /sposta FERRARA MATTIA stanza 11
+    args = context.args
+    if len(args) < 4 or args[2].lower() != "stanza":
+        await update.message.reply_text(
+            "Uso corretto:\n`/sposta COGNOME NOME stanza NUMERO`\n\nEsempio:\n`/sposta FERRARA MATTIA stanza 11`",
+            parse_mode="Markdown"
+        )
+        return
+
+    cognome    = args[0]
+    nome       = args[1]
+    nuova_stanza = args[3]
+
+    await context.bot.send_chat_action(chat_id=update.effective_chat.id, action="typing")
+    esito = sposta_in_sheet(cognome, nome, nuova_stanza)
+    modifiche_log.append(f"[{date.today()}] /sposta {cognome} {nome} → stanza {nuova_stanza}")
+    await update.message.reply_text(esito)
+
 # ─── AVVIO ────────────────────────────────────────────────────────────────────
 def main():
     app = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
@@ -708,6 +768,7 @@ def main():
     app.add_handler(CommandHandler("appello",  appello_command))
     app.add_handler(CommandHandler("modifiche",modifiche_command))
     app.add_handler(CommandHandler("compleanni", compleanni_command))
+    app.add_handler(CommandHandler("sposta",     sposta_command))
     app.add_handler(CommandHandler("reset",    reset))
     app.add_handler(CallbackQueryHandler(handle_callback))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))

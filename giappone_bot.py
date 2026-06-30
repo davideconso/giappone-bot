@@ -724,12 +724,30 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         reply = response.content[0].text
 
-        # Se la risposta sembra una modifica confermata, loggala
-        if any(k in user_text.lower() for k in ["sposta", "cambia", "modifica", "aggiorna", "togli", "aggiungi"]):
-            modifiche_log.append(f"[{date.today()}] {user_text}")
+        # Rilevamento cambio stanza → chiedi all'AI di estrarre i dati in JSON e aggiorna il foglio
+        if any(k in user_text.lower() for k in ["sposta", "cambia stanza", "metti in stanza", "spostalo", "spostala"]):
+            extract_response = claude_client.messages.create(
+                model="claude-haiku-4-5-20251001",
+                max_tokens=100,
+                system=(
+                    "Sei un estrattore di dati. Dall'input dell'utente, estrai il cambio stanza richiesto. "
+                    "Rispondi SOLO con JSON valido nel formato: "
+                    "{\"cognome\": \"COGNOME\", \"nome\": \"NOME\", \"stanza\": \"NUMERO\"} "
+                    "Se non riesci a identificare con certezza cognome, nome e nuova stanza, rispondi con: {}"
+                ),
+                messages=[{"role": "user", "content": user_text}]
+            )
+            try:
+                extracted = json.loads(extract_response.content[0].text.strip())
+                if extracted.get("cognome") and extracted.get("nome") and extracted.get("stanza"):
+                    esito = sposta_in_sheet(extracted["cognome"], extracted["nome"], extracted["stanza"])
+                    modifiche_log.append(f"[{date.today()}] {user_text} → {esito}")
+                    reply += f"\n\n{esito}"
+            except Exception:
+                pass  # Non riuscito a parsare, continua normalmente
 
         conversation_history[user_id].append({"role": "assistant", "content": reply})
-        await update.message.reply_text(reply)
+        await update.message.reply_text(reply, parse_mode="Markdown")
 
     except Exception as e:
         logger.error(f"Errore API: {type(e).__name__}: {e}")

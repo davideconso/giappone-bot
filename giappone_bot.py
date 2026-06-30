@@ -22,11 +22,11 @@ from telegram.ext import (
     ApplicationBuilder, MessageHandler, CommandHandler,
     ContextTypes, filters, CallbackQueryHandler
 )
-from groq import Groq
+import anthropic
 
 # ─── CONFIGURAZIONE ───────────────────────────────────────────────────────────
-TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN", "INSERISCI_QUI_IL_TOKEN")
-GROQ_API_KEY   = os.environ.get("GROQ_API_KEY",   "INSERISCI_QUI_LA_API_KEY_GROQ")
+TELEGRAM_TOKEN    = os.environ.get("TELEGRAM_TOKEN",    "INSERISCI_QUI_IL_TOKEN")
+ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "INSERISCI_QUI_LA_API_KEY_ANTHROPIC")
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -328,7 +328,7 @@ modifiche_log: list[str] = []
 # Storico conversazioni AI
 conversation_history: dict[int, list] = {}
 
-groq_client = Groq(api_key=GROQ_API_KEY)
+claude_client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
 
 # ─── HELPERS ──────────────────────────────────────────────────────────────────
 def get_programma_oggi() -> str:
@@ -506,6 +506,104 @@ async def _invia_prossimo_nome(message, user_id: int):
         parse_mode="Markdown"
     )
 
+# ─── COMPLEANNI ───────────────────────────────────────────────────────────────
+# Mappa lettera CF → mese
+CF_MESE = {
+    'A': 1, 'B': 2, 'C': 3, 'D': 4, 'E': 5, 'H': 6,
+    'L': 7, 'M': 8, 'P': 9, 'R': 10, 'S': 11, 'T': 12
+}
+
+# Dati CF: (nome, codice_fiscale)
+CF_PARTECIPANTI = [
+    ("AGOSTINI Nicolò",           "GSTNCL08L30G224L"),
+    ("BACCARO Irene",             "BCCRNI08H43H501F"),
+    ("BELLUCCI Francesco",        "BLLFNC09H25D451X"),
+    ("BIFULCO Francesco Andrea",  "BFLFNC09R05A509X"),
+    ("BONELLI Martina",           "BNLMTN08C63A662F"),
+    ("BUTTINO Desiree Fatima",    "BTTDRF09E51A783B"),
+    ("CARBONE Francesco",         "CRBFNC08L15L840H"),
+    ("CIMMINO Viola",             "CMMVLI10A67A783U"),
+    ("CORRADINI Giordano",        "CRRGDN07A12H501N"),
+    ("CORRADINI Luca",            "CRRLCU71H19H501N"),
+    ("CUCINO Francesco",          "CCNFNC08D28E958K"),
+    ("DEL GIULIO Christian",      "DLGCRS09S13E473O"),
+    ("DI GIACOPO Anastasia",      "DGCNTS10C61L103O"),
+    ("DI GIACOPO Lucrezia",       "DGCLRZ08M56L103X"),
+    ("DI VINCENZO Erica Marizol", "DVNRMR07M65Z611E"),
+    ("DORONZO Michele",           "DRNMHL08S14A669B"),
+    ("ERCOLI Eleonora",           "RCLLNR08M71H501M"),
+    ("FERRARI Tobia",             "FRRTBO08B20A246D"),
+    ("FERRARA Mattia",            "FRRMTT08R08F839L"),
+    ("FROSINI Ilaria",            "FRSLRI08S62A851V"),
+    ("GALLO Erica",               "GLLRCE08T43F839I"),
+    ("GIORDANO Gabriele",         "GRDGRL08R06H501M"),
+    ("GRILLO Lucrezia",           "GRLLRZ08R57H501J"),
+    ("IACOVELLA Leonardo",        "CVLLRD10E05Z210C"),
+    ("LALA Matteo",               "LLAMTT10B02A509W"),
+    ("LATO Giorgia Francesca",    "LTAGGF09R44A285D"),
+    ("LUCCI Christian",           "LCCCRS08R24H501J"),
+    ("MACCAGNAN Tommaso",         "MCCTMS08A07A001E"),
+    ("MACCARRONE Francesco",      "MCCFNC09B07L840K"),
+    ("MANCINO Gianluca",          "MNCGLC08A02G224H"),
+    ("MARINO Caterina",           "MRNCRN08T71D548R"),
+    ("MORGESE Ilaria",            "MRGLRI08E64A048E"),
+    ("MUSCAGLIONE Cecilia",       "MSCCCL10A62G273S"),
+    ("NAPOLETANO Rodolfo",        "NPLRLF08P02F839A"),
+    ("PALAZZO Giorgia",           "PLZGRG09A65A794S"),
+    ("PANNACCI Cesira",           "PNNCSR68P61H501P"),
+    ("PIERGIACOMI Priscilla",     "PRGPSC08M50L049E"),
+    ("POGGI Alice",               "PGGLCA08A47I480T"),
+    ("RANISI Giulia",             "RNSGLI74E70H501F"),
+    ("SCIALABBA Anna",            "SCLNNA11T46F205E"),
+    ("VITALETTI Davide",          "VTLDVD09T15A271V"),
+    ("ZOPPI Eleonora",            "ZPPLNR05M58H501B"),
+    ("ZOPPI Maurizio",            "ZPPMRZ73E30H501J"),
+]
+
+INIZIO_TURNO = date(2026, 7, 1)
+FINE_TURNO   = date(2026, 7, 16)
+
+def parse_cf_birthday(cf: str):
+    """Restituisce (mese, giorno) dalla data di nascita nel CF, o None se non valido."""
+    try:
+        anno_cf = int(cf[6:8])
+        mese = CF_MESE.get(cf[8].upper())
+        giorno_raw = int(cf[9:11])
+        if mese is None:
+            return None
+        # Le femmine hanno giorno+40
+        giorno = giorno_raw - 40 if giorno_raw > 40 else giorno_raw
+        return (mese, giorno)
+    except Exception:
+        return None
+
+async def compleanni_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not await check_auth(update):
+        return
+
+    trovati = []
+    for nome, cf in CF_PARTECIPANTI:
+        bd = parse_cf_birthday(cf)
+        if bd is None:
+            continue
+        mese, giorno = bd
+        try:
+            data_compleanno = date(2026, mese, giorno)
+        except ValueError:
+            continue
+        if INIZIO_TURNO <= data_compleanno <= FINE_TURNO:
+            trovati.append((data_compleanno, nome))
+
+    trovati.sort()
+
+    if trovati:
+        righe = "\n".join(f"🎂 *{nome}* — {d.strftime('%d/%m')}" for d, nome in trovati)
+        testo = f"*Compleanni durante il turno (01–16 luglio):*\n\n{righe}"
+    else:
+        testo = "Nessun compleanno durante il turno."
+
+    await update.message.reply_text(testo, parse_mode="Markdown")
+
 # ─── MESSAGGI LIBERI (AI) ─────────────────────────────────────────────────────
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not await check_auth(update):
@@ -545,16 +643,14 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         if modifiche_log:
             system += "\n\nMODIFICHE REGISTRATE DALLO STAFF:\n" + "\n".join(f"- {m}" for m in modifiche_log)
 
-        response = groq_client.chat.completions.create(
-            model="llama-3.1-8b-instant",
+        response = claude_client.messages.create(
+            model="claude-haiku-4-5-20251001",
             max_tokens=1024,
-            messages=[
-                {"role": "system", "content": system},
-                *conversation_history[user_id]
-            ]
+            system=system,
+            messages=conversation_history[user_id]
         )
 
-        reply = response.choices[0].message.content
+        reply = response.content[0].text
 
         # Se la risposta sembra una modifica confermata, loggala
         if any(k in user_text.lower() for k in ["sposta", "cambia", "modifica", "aggiorna", "togli", "aggiungi"]):
@@ -576,6 +672,7 @@ def main():
     app.add_handler(CommandHandler("oggi",     oggi_command))
     app.add_handler(CommandHandler("appello",  appello_command))
     app.add_handler(CommandHandler("modifiche",modifiche_command))
+    app.add_handler(CommandHandler("compleanni", compleanni_command))
     app.add_handler(CommandHandler("reset",    reset))
     app.add_handler(CallbackQueryHandler(handle_callback))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))

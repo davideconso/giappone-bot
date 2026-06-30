@@ -264,6 +264,53 @@ Ogni partecipante riceve: carta prepagata Mastercard (€220) + carta ICOCA tras
 Numeri carta: 00806 CIMMINO → 00848 MACCARRONE (assegnate in ordine di stanza)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CODICI FISCALI PARTECIPANTI
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AGOSTINI Nicolò          → GSTNCL08L30G224L
+BACCARO Irene            → BCCRNI08H43H501F
+BELLUCCI Francesco       → BLLFNC09H25D451X
+BIFULCO Francesco Andrea → BFLFNC09R05A509X
+BONELLI Martina          → BNLMTN08C63A662F
+BUTTINO Desiree Fatima   → BTTDRF09E51A783B
+CARBONE Francesco        → CRBFNC08L15L840H
+CIMMINO Viola            → CMMVLI10A67A783U
+CORRADINI Giordano       → CRRGDN07A12H501N
+CORRADINI Luca           → CRRLCU71H19H501N
+CUCINO Francesco         → CCNFNC08D28E958K
+DEL GIULIO Christian     → DLGCRS09S13E473O
+DI GIACOPO Anastasia     → DGCNTS10C61L103O
+DI GIACOPO Lucrezia      → DGCLRZ08M56L103X
+DI VINCENZO Erica Marizol→ DVNRMR07M65Z611E
+DORONZO Michele          → DRNMHL08S14A669B
+ERCOLI Eleonora          → RCLLNR08M71H501M
+FERRARI Tobia            → FRRTBO08B20A246D
+FERRARA Mattia           → FRRMTT08R08F839L
+FROSINI Ilaria           → FRSLRI08S62A851V
+GALLO Erica              → GLLRCE08T43F839I
+GIORDANO Gabriele        → GRDGRL08R06H501M
+GRILLO Lucrezia          → GRLLRZ08R57H501J
+IACOVELLA Leonardo       → CVLLRD10E05Z210C
+LALA Matteo              → LLAMTT10B02A509W
+LATO Giorgia Francesca   → LTAGGF09R44A285D
+LUCCI Christian          → LCCCRS08R24H501J
+MACCAGNAN Tommaso        → MCCTMS08A07A001E
+MACCARRONE Francesco     → MCCFNC09B07L840K
+MANCINO Gianluca         → MNCGLC08A02G224H
+MARINO Caterina          → MRNCRN08T71D548R
+MORGESE Ilaria           → MRGLRI08E64A048E
+MUSCAGLIONE Cecilia      → MSCCCL10A62G273S
+NAPOLETANO Rodolfo       → NPLRLF08P02F839A
+PALAZZO Giorgia          → PLZGRG09A65A794S
+PANNACCI Cesira          → PNNCSR68P61H501P
+PIERGIACOMI Priscilla    → PRGPSC08M50L049E
+POGGI Alice              → PGGLCA08A47I480T
+RANISI Giulia            → RNSGLI74E70H501F
+SCIALABBA Anna           → SCLNNA11T46F205E
+VITALETTI Davide         → VTLDVD09T15A271V
+ZOPPI Eleonora           → ZPPLNR05M58H501B
+ZOPPI Maurizio           → ZPPMRZ73E30H501J
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 NOTE OPERATIVE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 - IACOVELLA Leonardo: parte da Roma ma rientra su Cagliari

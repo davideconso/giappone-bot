@@ -264,6 +264,53 @@ Ogni partecipante riceve: carta prepagata Mastercard (€220) + carta ICOCA tras
 Numeri carta: 00806 CIMMINO → 00848 MACCARRONE (assegnate in ordine di stanza)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RUBRICA PARTECIPANTI (data nascita | cell partecipante | cell genitore/intestatario | email)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AGOSTINI Nicolò          | 30/07/2008 | 3714244516 | 3475923795 | annaalberoni@gmail.com
+BACCARO Irene            | 03/06/2008 | 3498132759 | 3391514087 | alessandrapadiglione@yahoo.it
+BELLUCCI Francesco       | 25/06/2009 | —          | 3391944963 | totaro.cris@gmail.com
+BIFULCO Francesco Andrea | 05/10/2009 | 3518784841 | 3315738738 | bifulco.massimo@gdf.it
+BONELLI Martina          | 23/03/2008 | 3207812774 | 3289167065 | bonelli-antonio@libero.it
+BUTTINO Desiree Fatima   | 11/05/2009 | 3247728521 | 3270027458 | ermy_1990@hotmail.it
+CARBONE Francesco        | 15/07/2008 | 3756736714 | 3477913283 | giovcarbone@alice.it
+CIMMINO Viola            | 27/01/2010 | 3470073206 | 3470073206 | lucia.castagnozzi@alice.it
+CORRADINI Giordano       | 12/01/2007 | 3498081514 | 3382639439 | lucajago@gmail.com
+CORRADINI Luca (assist.) | 19/06/1971 | —          | 3382639439 | lucajago@gmail.com
+CUCINO Francesco         | 28/04/2008 | 3313739594 | 3313739594 | umbertovfs@libero.it
+DEL GIULIO Christian     | 13/11/2009 | 3501385914 | 3384009799 | stefanodelgiulio@virgilio.it
+DI GIACOPO Anastasia     | 21/03/2010 | 3518760707 | 3391150456 | fabrizio.digiacopo35@gmail.com
+DI GIACOPO Lucrezia      | 16/08/2008 | 3481145978 | 3391150456 | fabrizio.digiacopo35@gmail.com
+DI VINCENZO Erica Marizol| 25/08/2007 | 3921815461 | 3470186389 | onofrio.divincenzo@unibas.it
+DORONZO Michele          | 14/11/2008 | 3703603834 | 3497644252 | mar.tutti@libero.it
+ERCOLI Eleonora          | 31/08/2008 | 3518341253 | 3922631771 | daniela_renna@hotmail.com
+FERRARI Tobia            | 20/02/2008 | 3387097359 | 3494328563 | nora.bentivoglio@gmail.com
+FERRARA Mattia           | 08/10/2008 | 3512233875 | 3662476894 | antoniofer11@libero.it
+FROSINI Ilaria           | 22/11/2008 | 3474068434 | 3381212666 | paolamenci70@gmail.com
+GALLO Erica              | 03/12/2008 | 3714952943 | 3346318300 | modababy011@libero.it
+GIORDANO Gabriele        | 06/10/2008 | 3669051522 | 3313621258 | sabativit@alice.it
+GRILLO Lucrezia          | 17/10/2008 | 3922908227 | 3385218965 | kettyproia75@gmail.com
+IACOVELLA Leonardo       | 05/05/2010 | 3294476385 | 3470734473 | linda.dilario@gmail.com
+LALA Matteo              | 02/02/2010 | —          | 3333898170 | giorgiolala@libero.it
+LATO Giorgia Francesca   | 04/10/2009 | 3701513468 | 3341155095 | Romotron@gmail.com
+LUCCI Christian          | 27/10/2008 | 3806588128 | 3388265011 | lucciantonio71@gmail.com
+MACCAGNAN Tommaso        | 07/01/2008 | 3471430255 | 3389050848 | tomasci@libero.it
+MACCARRONE Francesco     | 07/02/2009 | 3519280527 | 3478569733 | longo.imma64@gmail.com
+MANCINO Gianluca         | 02/01/2008 | 3779891711 | 3286862980 | paola.caposiena@liceocuriel.net
+MARINO Caterina          | 31/12/2008 | 3337796784 | 3384536986 | france7373@gmail.com
+MORGESE Ilaria           | 24/05/2008 | 3393400112 | 3393400112 | morganfree72@libero.it
+MUSCAGLIONE Cecilia      | 22/01/2010 | 3475384298 | 3495606837 | danielasampino@virgilio.it
+NAPOLETANO Rodolfo       | 02/09/2008 | 3493255877 | 3388934294 | cosmo.napoletano@gmail.com
+PALAZZO Giorgia          | 25/01/2009 | 3475323149 | 335373246  | gpalazzo@studiopalazzo.eu
+PANNACCI Cesira (assist.)| 21/09/1968 | —          | 3382639439 | lucajago@gmail.com
+PIERGIACOMI Priscilla    | 10/08/2008 | 3890276131 | 3470664669 | annarita.vozza1000@gmail.com
+POGGI Alice              | 07/01/2008 | 3479268724 | 3476917430 | anna.levrero@gmail.com
+RANISI Giulia (assist.)  | 30/05/1974 | —          | 3316041944 | zoppimaurizio73@gmail.com
+SCIALABBA Anna           | 06/12/2011 | —          | 3387782947 | ciceraro71@gmail.com
+VITALETTI Davide         | 15/12/2009 | —          | 3291681077 | cencett84@hotmail.it
+ZOPPI Eleonora           | 18/08/2005 | 3316041944 | 3316041944 | zoppimaurizio73@gmail.com
+ZOPPI Maurizio (assist.) | 30/05/1973 | —          | 3316041944 | zoppimaurizio73@gmail.com
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 CODICI FISCALI PARTECIPANTI
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 AGOSTINI Nicolò          → GSTNCL08L30G224L
@@ -507,93 +554,65 @@ async def _invia_prossimo_nome(message, user_id: int):
     )
 
 # ─── COMPLEANNI ───────────────────────────────────────────────────────────────
-# Mappa lettera CF → mese
-CF_MESE = {
-    'A': 1, 'B': 2, 'C': 3, 'D': 4, 'E': 5, 'H': 6,
-    'L': 7, 'M': 8, 'P': 9, 'R': 10, 'S': 11, 'T': 12
-}
-
-# Dati CF: (nome, codice_fiscale)
-CF_PARTECIPANTI = [
-    ("AGOSTINI Nicolò",           "GSTNCL08L30G224L"),
-    ("BACCARO Irene",             "BCCRNI08H43H501F"),
-    ("BELLUCCI Francesco",        "BLLFNC09H25D451X"),
-    ("BIFULCO Francesco Andrea",  "BFLFNC09R05A509X"),
-    ("BONELLI Martina",           "BNLMTN08C63A662F"),
-    ("BUTTINO Desiree Fatima",    "BTTDRF09E51A783B"),
-    ("CARBONE Francesco",         "CRBFNC08L15L840H"),
-    ("CIMMINO Viola",             "CMMVLI10A67A783U"),
-    ("CORRADINI Giordano",        "CRRGDN07A12H501N"),
-    ("CORRADINI Luca",            "CRRLCU71H19H501N"),
-    ("CUCINO Francesco",          "CCNFNC08D28E958K"),
-    ("DEL GIULIO Christian",      "DLGCRS09S13E473O"),
-    ("DI GIACOPO Anastasia",      "DGCNTS10C61L103O"),
-    ("DI GIACOPO Lucrezia",       "DGCLRZ08M56L103X"),
-    ("DI VINCENZO Erica Marizol", "DVNRMR07M65Z611E"),
-    ("DORONZO Michele",           "DRNMHL08S14A669B"),
-    ("ERCOLI Eleonora",           "RCLLNR08M71H501M"),
-    ("FERRARI Tobia",             "FRRTBO08B20A246D"),
-    ("FERRARA Mattia",            "FRRMTT08R08F839L"),
-    ("FROSINI Ilaria",            "FRSLRI08S62A851V"),
-    ("GALLO Erica",               "GLLRCE08T43F839I"),
-    ("GIORDANO Gabriele",         "GRDGRL08R06H501M"),
-    ("GRILLO Lucrezia",           "GRLLRZ08R57H501J"),
-    ("IACOVELLA Leonardo",        "CVLLRD10E05Z210C"),
-    ("LALA Matteo",               "LLAMTT10B02A509W"),
-    ("LATO Giorgia Francesca",    "LTAGGF09R44A285D"),
-    ("LUCCI Christian",           "LCCCRS08R24H501J"),
-    ("MACCAGNAN Tommaso",         "MCCTMS08A07A001E"),
-    ("MACCARRONE Francesco",      "MCCFNC09B07L840K"),
-    ("MANCINO Gianluca",          "MNCGLC08A02G224H"),
-    ("MARINO Caterina",           "MRNCRN08T71D548R"),
-    ("MORGESE Ilaria",            "MRGLRI08E64A048E"),
-    ("MUSCAGLIONE Cecilia",       "MSCCCL10A62G273S"),
-    ("NAPOLETANO Rodolfo",        "NPLRLF08P02F839A"),
-    ("PALAZZO Giorgia",           "PLZGRG09A65A794S"),
-    ("PANNACCI Cesira",           "PNNCSR68P61H501P"),
-    ("PIERGIACOMI Priscilla",     "PRGPSC08M50L049E"),
-    ("POGGI Alice",               "PGGLCA08A47I480T"),
-    ("RANISI Giulia",             "RNSGLI74E70H501F"),
-    ("SCIALABBA Anna",            "SCLNNA11T46F205E"),
-    ("VITALETTI Davide",          "VTLDVD09T15A271V"),
-    ("ZOPPI Eleonora",            "ZPPLNR05M58H501B"),
-    ("ZOPPI Maurizio",            "ZPPMRZ73E30H501J"),
+# Date di nascita reali dal file Excel (giorno, mese, anno)
+PARTECIPANTI_DATE = [
+    ("AGOSTINI Nicolò",           date(2008,  7, 30)),
+    ("BACCARO Irene",             date(2008,  6,  3)),
+    ("BELLUCCI Francesco",        date(2009,  6, 25)),
+    ("BIFULCO Francesco Andrea",  date(2009, 10,  5)),
+    ("BONELLI Martina",           date(2008,  3, 23)),
+    ("BUTTINO Desiree Fatima",    date(2009,  5, 11)),
+    ("CARBONE Francesco",         date(2008,  7, 15)),
+    ("CIMMINO Viola",             date(2010,  1, 27)),
+    ("CORRADINI Giordano",        date(2007,  1, 12)),
+    ("CORRADINI Luca",            date(1971,  6, 19)),
+    ("CUCINO Francesco",          date(2008,  4, 28)),
+    ("DEL GIULIO Christian",      date(2009, 11, 13)),
+    ("DI GIACOPO Anastasia",      date(2010,  3, 21)),
+    ("DI GIACOPO Lucrezia",       date(2008,  8, 16)),
+    ("DI VINCENZO Erica Marizol", date(2007,  8, 25)),
+    ("DORONZO Michele",           date(2008, 11, 14)),
+    ("ERCOLI Eleonora",           date(2008,  8, 31)),
+    ("FERRARI Tobia",             date(2008,  2, 20)),
+    ("FERRARA Mattia",            date(2008, 10,  8)),
+    ("FROSINI Ilaria",            date(2008, 11, 22)),
+    ("GALLO Erica",               date(2008, 12,  3)),
+    ("GIORDANO Gabriele",         date(2008, 10,  6)),
+    ("GRILLO Lucrezia",           date(2008, 10, 17)),
+    ("IACOVELLA Leonardo",        date(2010,  5,  5)),
+    ("LALA Matteo",               date(2010,  2,  2)),
+    ("LATO Giorgia Francesca",    date(2009, 10,  4)),
+    ("LUCCI Christian",           date(2008, 10, 27)),
+    ("MACCAGNAN Tommaso",         date(2008,  1,  7)),
+    ("MACCARRONE Francesco",      date(2009,  2,  7)),
+    ("MANCINO Gianluca",          date(2008,  1,  2)),
+    ("MARINO Caterina",           date(2008, 12, 31)),
+    ("MORGESE Ilaria",            date(2008,  5, 24)),
+    ("MUSCAGLIONE Cecilia",       date(2010,  1, 22)),
+    ("NAPOLETANO Rodolfo",        date(2008,  9,  2)),
+    ("PALAZZO Giorgia",           date(2009,  1, 25)),
+    ("PANNACCI Cesira",           date(1968,  9, 21)),
+    ("PIERGIACOMI Priscilla",     date(2008,  8, 10)),
+    ("POGGI Alice",               date(2008,  1,  7)),
+    ("RANISI Giulia",             date(1974,  5, 30)),
+    ("SCIALABBA Anna",            date(2011, 12,  6)),
+    ("VITALETTI Davide",          date(2009, 12, 15)),
+    ("ZOPPI Eleonora",            date(2005,  8, 18)),
+    ("ZOPPI Maurizio",            date(1973,  5, 30)),
 ]
 
 INIZIO_TURNO = date(2026, 7, 1)
 FINE_TURNO   = date(2026, 7, 16)
 
-def parse_cf_birthday(cf: str):
-    """Restituisce (mese, giorno) dalla data di nascita nel CF, o None se non valido."""
-    try:
-        anno_cf = int(cf[6:8])
-        mese = CF_MESE.get(cf[8].upper())
-        giorno_raw = int(cf[9:11])
-        if mese is None:
-            return None
-        # Le femmine hanno giorno+40
-        giorno = giorno_raw - 40 if giorno_raw > 40 else giorno_raw
-        return (mese, giorno)
-    except Exception:
-        return None
-
 async def compleanni_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not await check_auth(update):
         return
 
-    trovati = []
-    for nome, cf in CF_PARTECIPANTI:
-        bd = parse_cf_birthday(cf)
-        if bd is None:
-            continue
-        mese, giorno = bd
-        try:
-            data_compleanno = date(2026, mese, giorno)
-        except ValueError:
-            continue
-        if INIZIO_TURNO <= data_compleanno <= FINE_TURNO:
-            trovati.append((data_compleanno, nome))
-
+    trovati = [
+        (d.replace(year=2026), nome)
+        for nome, d in PARTECIPANTI_DATE
+        if INIZIO_TURNO <= d.replace(year=2026) <= FINE_TURNO
+    ]
     trovati.sort()
 
     if trovati:
@@ -620,6 +639,22 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Rilevamento richiesta programma di oggi nel testo
     if any(k in user_text.lower() for k in ["cosa facciamo oggi", "programma di oggi", "oggi cosa"]):
         await update.message.reply_text(get_programma_oggi(), parse_mode="Markdown")
+        return
+
+    # Rilevamento domande sui compleanni → risposta programmatica (non AI)
+    if any(k in user_text.lower() for k in ["complean", "compie gli anni", "festeggia", "nato il", "nata il"]):
+        trovati = [
+            (d.replace(year=2026), nome)
+            for nome, d in PARTECIPANTI_DATE
+            if INIZIO_TURNO <= d.replace(year=2026) <= FINE_TURNO
+        ]
+        trovati.sort()
+        if trovati:
+            righe = "\n".join(f"🎂 *{nome}* — {d.strftime('%d/%m')}" for d, nome in trovati)
+            testo = f"*Compleanni durante il turno (01–16 luglio):*\n\n{righe}"
+        else:
+            testo = "Nessun compleanno durante il turno."
+        await update.message.reply_text(testo, parse_mode="Markdown")
         return
 
     if user_id not in conversation_history:

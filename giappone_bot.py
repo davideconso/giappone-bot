@@ -56,14 +56,28 @@ def sposta_in_sheet(cognome: str, nome: str, nuova_stanza: str) -> str:
             for ws in sh.worksheets():
                 all_values = ws.get_all_values()
                 for i, row in enumerate(all_values):
-                    if len(row) >= 5:
-                        if row[3].strip().upper() == cognome_up and row[4].strip().upper() == nome_up:
-                            ws.update_cell(i + 1, 2, nuova_stanza)
-                            return (f"✅ *{cognome} {nome}* spostato/a alla stanza *{nuova_stanza}*\n"
-                                    f"Foglio: {sh.title} — Tab: {ws.title}")
+                    # Cerca cognome in qualsiasi colonna da 0 a 4
+                    for col_cognome in range(5):
+                        if (len(row) > col_cognome + 1 and
+                            row[col_cognome].strip().upper() == cognome_up and
+                            row[col_cognome + 1].strip().upper() == nome_up):
+                            # Cerca la colonna STANZA nella riga header sopra
+                            stanza_col = None
+                            for h_row in all_values[max(0, i-10):i]:
+                                for j, cell in enumerate(h_row):
+                                    if cell.strip().upper() == "STANZA":
+                                        stanza_col = j + 1  # 1-indexed per gspread
+                                        break
+                                if stanza_col:
+                                    break
+                            if stanza_col is None:
+                                stanza_col = 2  # fallback: colonna B
+                            ws.update_cell(i + 1, stanza_col, nuova_stanza)
+                            return (f"✅ *{cognome} {nome}* → stanza *{nuova_stanza}*\n"
+                                    f"Tab: {ws.title} | Riga: {i+1} | Col STANZA: {stanza_col}")
         return f"⚠️ {cognome} {nome} non trovato/a in nessun foglio rooming."
     except Exception as e:
-        return f"❌ Errore Google Sheets: {type(e).__name__}: {str(e)[:150]}"
+        return f"❌ Errore: {type(e).__name__}: {str(e)[:200]}"
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -738,13 +752,18 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 messages=[{"role": "user", "content": user_text}]
             )
             try:
-                extracted = json.loads(extract_response.content[0].text.strip())
+                raw = extract_response.content[0].text.strip()
+                extracted = json.loads(raw)
                 if extracted.get("cognome") and extracted.get("nome") and extracted.get("stanza"):
                     esito = sposta_in_sheet(extracted["cognome"], extracted["nome"], extracted["stanza"])
                     modifiche_log.append(f"[{date.today()}] {user_text} → {esito}")
                     reply += f"\n\n{esito}"
-            except Exception:
-                pass  # Non riuscito a parsare, continua normalmente
+                else:
+                    reply += "\n\n⚠️ Non ho capito chi spostare e in quale stanza. Usa: `/sposta COGNOME NOME stanza NUMERO`"
+            except json.JSONDecodeError as e:
+                reply += f"\n\n⚠️ Errore parsing modifica: {str(e)[:100]}"
+            except Exception as e:
+                reply += f"\n\n⚠️ Errore Sheets: {type(e).__name__}: {str(e)[:150]}"
 
         conversation_history[user_id].append({"role": "assistant", "content": reply})
         await update.message.reply_text(reply, parse_mode="Markdown")

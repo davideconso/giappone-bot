@@ -31,6 +31,30 @@ GROQ_API_KEY   = os.environ.get("GROQ_API_KEY",   "INSERISCI_QUI_LA_API_KEY_GROQ
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# ─── WHITELIST UTENTI AUTORIZZATI ─────────────────────────────────────────────
+# Aggiungi qui gli ID Telegram dello staff autorizzato.
+# Per trovare il proprio ID: aprire il bot e scrivere /myid
+AUTHORIZED_IDS: set[int] = {
+    # es: 123456789,  # Davide
+    #     987654321,  # Francesco
+}
+
+def is_authorized(user_id: int) -> bool:
+    # Se la whitelist è vuota, tutti possono accedere (utile in fase di setup)
+    if not AUTHORIZED_IDS:
+        return True
+    return user_id in AUTHORIZED_IDS
+
+async def check_auth(update: Update) -> bool:
+    """Controlla autorizzazione e invia messaggio di rifiuto se non autorizzato."""
+    if not is_authorized(update.effective_user.id):
+        await update.message.reply_text(
+            "🔒 Accesso non autorizzato.\n"
+            "Contatta il responsabile del viaggio per richiedere l'accesso."
+        )
+        return False
+    return True
+
 # ─── GRUPPI COLORE ────────────────────────────────────────────────────────────
 GRUPPI = {
     "🔴 ROSSO": [
@@ -284,7 +308,17 @@ def get_programma_data(d: date) -> str:
     return f"Nessun programma per il {d.strftime('%d/%m/%Y')}."
 
 # ─── COMANDI ──────────────────────────────────────────────────────────────────
+async def myid_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    uid = update.effective_user.id
+    name = update.effective_user.full_name
+    await update.message.reply_text(
+        f"👤 *{name}*\n🆔 Il tuo ID Telegram è: `{uid}`\n\nMandalo al responsabile per ottenere l'accesso.",
+        parse_mode="Markdown"
+    )
+
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not await check_auth(update):
+        return
     await update.message.reply_text(
         "👋 Ciao! Sono l'assistente staff *Giappone Discovery - Turno 1*.\n\n"
         "Puoi scrivermi in linguaggio libero oppure usare questi comandi:\n\n"
@@ -297,6 +331,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not await check_auth(update):
+        return
     await update.message.reply_text(
         "📌 *Esempi di domande:*\n"
         "• \"In che stanza è LALA Matteo a Kyoto?\"\n"
@@ -312,10 +348,14 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def oggi_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not await check_auth(update):
+        return
     testo = get_programma_oggi()
     await update.message.reply_text(testo, parse_mode="Markdown")
 
 async def modifiche_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not await check_auth(update):
+        return
     if not modifiche_log:
         await update.message.reply_text("Nessuna modifica registrata in questa sessione.")
     else:
@@ -323,6 +363,8 @@ async def modifiche_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(testo, parse_mode="Markdown")
 
 async def reset(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not await check_auth(update):
+        return
     user_id = update.effective_user.id
     conversation_history[user_id] = []
     appello_state.pop(user_id, None)
@@ -330,6 +372,8 @@ async def reset(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # ─── APPELLO ──────────────────────────────────────────────────────────────────
 async def appello_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not await check_auth(update):
+        return
     keyboard = [
         [InlineKeyboardButton("🔴 ROSSO (21 persone)", callback_data="appello_ROSSO")],
         [InlineKeyboardButton("🔵 AZZURRO (22 persone)", callback_data="appello_AZZURRO")],
@@ -417,6 +461,8 @@ async def _invia_prossimo_nome(message, user_id: int):
 
 # ─── MESSAGGI LIBERI (AI) ─────────────────────────────────────────────────────
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not await check_auth(update):
+        return
     user_id = update.effective_user.id
 
     # Se c'è un appello in corso, non processare come domanda AI
@@ -471,12 +517,13 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(reply)
 
     except Exception as e:
-        logger.error(f"Errore API: {e}")
-        await update.message.reply_text("⚠️ Errore temporaneo. Riprova tra qualche secondo.")
+        logger.error(f"Errore API: {type(e).__name__}: {e}")
+        await update.message.reply_text(f"⚠️ Errore: `{type(e).__name__}: {str(e)[:200]}`", parse_mode="Markdown")
 
 # ─── AVVIO ────────────────────────────────────────────────────────────────────
 def main():
     app = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
+    app.add_handler(CommandHandler("myid",     myid_command))
     app.add_handler(CommandHandler("start",    start))
     app.add_handler(CommandHandler("help",     help_command))
     app.add_handler(CommandHandler("oggi",     oggi_command))

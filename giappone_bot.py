@@ -406,22 +406,26 @@ FERRARA Mattia, NAPOLETANO Rodolfo, CUCINO Francesco,
 GIORDANO Gabriele, LUCCI Christian, IACOVELLA Leonardo Xiangxing
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-ROOMING KYOTO (triple) - Oriental Hotel Kyoto Rokujo
+ROOMING KYOTO (triple + doppie) - Oriental Hotel Kyoto Rokujo
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Stanza 1:  CIMMINO Viola | DI VINCENZO Erica Marizol | GALLO Erica
 Stanza 2:  BUTTINO Desiree Fatima | MORGESE Ilaria | PIERGIACOMI Priscilla
 Stanza 3:  DI GIACOPO Lucrezia | ERCOLI Eleonora | DI GIACOPO Anastasia
 Stanza 4:  BACCARO Irene | FROSINI Ilaria | GRILLO Lucrezia
 Stanza 5:  ZOPPI Eleonora | ZOPPI Maurizio | RANISI Giulia
-Stanza 6:  BONELLI Martina | LATO Giorgia Francesca | MARINO Caterina | POGGI Alice
-Stanza 7:  PALAZZO Giorgia | SCIALABBA Anna | MUSCAGLIONE Cecilia
-Stanza 8:  PANNACCI Cesira | CORRADINI Giordano | CORRADINI Luca
-Stanza 9:  DORONZO Michele | BIFULCO Francesco Andrea | LALA Matteo
-Stanza 10: FERRARA Mattia | NAPOLETANO Rodolfo | CUCINO Francesco
-Stanza 11: GIORDANO Gabriele | LUCCI Christian | IACOVELLA Leonardo Xiangxing
-Stanza 12: VITALETTI Davide | BELLUCCI Francesco | DEL GIULIO Christian
-Stanza 13: AGOSTINI Nicolò | MACCAGNAN Tommaso | MANCINO Gianluca
-Stanza 14: FERRARI Tobia | CARBONE Francesco | MACCARRONE Francesco
+Stanza 6:  BONELLI Martina | LATO Giorgia Francesca  [doppia]
+Stanza 7:  MARINO Caterina | POGGI Alice  [doppia]
+Stanza 8:  PALAZZO Giorgia | SCIALABBA Anna | MUSCAGLIONE Cecilia
+Stanza 9:  PANNACCI Cesira | CORRADINI Giordano | CORRADINI Luca
+Stanza 10: DORONZO Michele | BIFULCO Francesco Andrea | LALA Matteo
+Stanza 11: FERRARA Mattia | NAPOLETANO Rodolfo | CUCINO Francesco
+Stanza 12: GIORDANO Gabriele | LUCCI Christian | IACOVELLA Leonardo Xiangxing
+Stanza 13: VITALETTI Davide | BELLUCCI Francesco | DEL GIULIO Christian
+Stanza 14: AGOSTINI Nicolò | MACCAGNAN Tommaso | MANCINO Gianluca
+Stanza 15: FERRARI Tobia | CARBONE Francesco | MACCARRONE Francesco
+Stanza 16: TL Davide Di Stefano  [singola]
+Stanza 17: TL Francesco Chiappetta  [singola]
+Stanza 18: TL Francesca Guerrato  [singola]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ROOMING TOKYO (quadruple) - Oriental Hotel Tokyo Bay

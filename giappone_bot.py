@@ -459,6 +459,18 @@ MANCINO Gianluca    → Sordità neurosensoriale bilaterale, usa apparecchi acus
 POGGI Alice         → Disabile (nulla di clinicamente rilevante)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PARTENZE PER CITTÀ (operativo)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NAPOLI (7): Cimmino Viola, Di Vincenzo Erica Marizol, Gallo Erica, Bifulco Francesco Andrea, Lala Matteo, Ferrara Mattia, Napoletano Rodolfo
+ROMA (21):  Buttino Desiree Fatima, Morgese Ilaria, Piergiacomi Priscilla, Di Giacopo Lucrezia, Ercoli Eleonora, Di Giacopo Anastasia, Baccaro Irene, Frosini Ilaria, Grillo Lucrezia, Zoppi Eleonora, Zoppi Maurizio (assist.), Ranisi Giulia (assist.), Pannacci Cesira (assist.), Corradini Giordano, Corradini Luca (assist.), Cucino Francesco, Giordano Gabriele, Lucci Christian, Iacovella Leonardo Xiangxing, Vitaletti Davide, Bellucci Francesco
+BARI (3):   Bonelli Martina, Lato Giorgia Francesca, Doronzo Michele
+BOLOGNA (1): Marino Caterina
+MILANO (4): Poggi Alice, Palazzo Giorgia, Scialabba Anna, Ferrari Tobia
+PALERMO (1): Muscaglione Cecilia
+VENEZIA (6): Del Giulio Christian, Agostini Nicolò, Maccagnan Tommaso, Mancino Gianluca, Carbone Francesco, Maccarrone Francesco
+Nota: IACOVELLA Leonardo → parte da Roma ma TORNA su Cagliari
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 MATERIALE CONSEGNATO
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Ogni partecipante riceve: carta prepagata Mastercard (€220) + carta ICOCA trasporti + braccialetto colorato

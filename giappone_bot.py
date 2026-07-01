@@ -277,14 +277,14 @@ GRUPPI = {
 # ─── PROGRAMMA GIORNALIERO ────────────────────────────────────────────────────
 PROGRAMMA = {
     date(2026, 7, 2):  {
-        "titolo": "✈️ Arrivo a Osaka",
-        "attivita": "Arrivo all'aeroporto di Osaka Kansai alle 19:05 (volo TK086). Trasferimento in pullman all'Oriental Hotel Kyoto Rokujo.",
-        "descrizione": "Dopo un lungo viaggio attraverso Istanbul, atterrate nella grande area metropolitana di Osaka-Kyoto. Il tragitto verso l'hotel vi darà i primi scorci del Giappone reale, molto diverso dai cliché: capannoni industriali, insegne al neon, reti ferroviarie sopraelevate."
+        "titolo": "✈️ Arrivo a Osaka + Noodles Party",
+        "attivita": "Arrivo all'aeroporto di Osaka Kansai alle 19:05 (volo TK086). Trasferimento in pullman all'Oriental Hotel Kyoto Rokujo. Cena: Noodles Party (instant noodles) in hotel.",
+        "descrizione": "Dopo un lungo viaggio attraverso Istanbul, atterrate nella grande area metropolitana di Osaka-Kyoto. Il tragitto verso l'hotel vi darà i primi scorci del Giappone reale, molto diverso dai cliché: capannoni industriali, insegne al neon, reti ferroviarie sopraelevate. La Noodles Party è la prima cena in Giappone: instant noodles giapponesi per cominciare subito a immergersi nella cultura locale."
     },
     date(2026, 7, 3):  {
         "titolo": "📚 Scuola + Arashiyama",
-        "attivita": "Corso di giapponese 3 ore (Campus Plaza, 9:00-12:00, aule R4 F6 / R5 F6). Pomeriggio: Arashiyama + Noodles Party (bus).",
-        "descrizione": "Arashiyama è il quartiere bambù di Kyoto: il celebre boschetto di bambù gigante è uno dei simboli del Giappone. Lungo il fiume Oi si trovano il Tempio Tenryu-ji (patrimonio UNESCO) e il pittoresco ponte Togetsukyo. La noodles party è un'introduzione pratica alla cucina locale — ramen, udon e soba sono le basi."
+        "attivita": "Corso di giapponese 3 ore (Campus Plaza, 9:00-12:00, aule R4 F6 / R5 F6). Pomeriggio: Arashiyama (bus).",
+        "descrizione": "Arashiyama è il quartiere bambù di Kyoto: il celebre boschetto di bambù gigante è uno dei simboli del Giappone. Lungo il fiume Oi si trovano il Tempio Tenryu-ji (patrimonio UNESCO) e il pittoresco ponte Togetsukyo."
     },
     date(2026, 7, 4):  {
         "titolo": "📚 Scuola full day",
@@ -293,7 +293,7 @@ PROGRAMMA = {
     },
     date(2026, 7, 5):  {
         "titolo": "🏯 Osaka",
-        "attivita": "Gita a Osaka: Castello → Kuromon Ichiba Market (pranzo) → Tsutenkaku → Nipponbashi → Dotonbori → eventuale Umekita Park. (Keihan line)",
+        "attivita": "Gita a Osaka (Keihan line): Castello (TKT) → Kuromon Market (pranzo) → Tsutenkaku → Nipponbashi → Dotonbori → eventuale Umekita Park.",
         "descrizione": "Osaka è la città più vivace del Giappone, famosa per il cibo e il carattere schietto degli abitanti. Il Castello è una ricostruzione del 1931 dell'originale del 1583. Kuromon è il 'ventre di Osaka': 170 bancarelle di pesce fresco, frutti esotici e street food. Dotonbori è il cuore della movida, con le sue insegne luminose enormi (il famoso Glico Man)."
     },
     date(2026, 7, 6):  {
@@ -343,7 +343,7 @@ PROGRAMMA = {
     },
     date(2026, 7, 15): {
         "titolo": "🎌 Tokyo + Partenza",
-        "attivita": "Mattina: Akihabara + Asakusa. Check-out hotel. Volo di rientro TK199 da Tokyo Haneda ore 21:45.",
+        "attivita": "Mattina: Akihabara + Asakusa. Check-out hotel e partenza per aeroporto. Volo di rientro TK199 da Tokyo Haneda ore 21:45.",
         "descrizione": "Akihabara è il paradiso dell'elettronica e dell'anime/manga — negozi su 8 piani di action figure, videogame vintage, fumetti. Asakusa è il quartiere più antico di Tokyo: il Tempio Sensoji (645 d.C.) e la via Nakamise con i souvenir tradizionali. La sera si parte per Istanbul con Turkish Airlines."
     },
     date(2026, 7, 16): {

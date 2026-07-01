@@ -555,6 +555,96 @@ ZOPPI Eleonora           → ZPPLNR05M58H501B
 ZOPPI Maurizio           → ZPPMRZ73E30H501J
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SCUOLA DI GIAPPONESE - Kyoto Minsai (Schedule Tentative)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Scuola: Kyoto Minsai Japanese Language School
+Due classi parallele: CLASSE A e CLASSE B (stesso orario, aule diverse)
+Totale ore: 30 ore per classe
+
+CALENDARIO LEZIONI TURNO 1:
+
+03/07 ven  │ 3 ore  │ 9:00-12:00
+  Classe A → Campus Plaza, Lecture Room 4 (6F)
+  Classe B → Campus Plaza, Lecture Room 5 (6F)
+
+04/07 sab  │ 6 ore  │ 9:00-11:30 / 13:00-16:30
+  Classe A → Minsai Saiin Campus, aula 2A
+  Classe B → Minsai Saiin Campus, aula 2B
+
+05/07 dom  │ NIENTE SCUOLA
+06/07 lun  │ NIENTE SCUOLA
+
+07/07 mar  │ 3 ore  │ 9:00-12:00
+  Classe A → Campus Plaza, Lecture Room 6 (6F)
+  Classe B → Campus Plaza, Lecture Room 5 (6F)
+
+08/07 mer  │ 3 ore  │ 9:00-12:00
+  Classe A → Campus Plaza, Lecture Room 6 (6F)
+  Classe B → Campus Plaza, Lecture Room 5 (6F)
+
+09/07 gio  │ 3 ore  │ 9:00-12:00
+  Classe A → Campus Plaza, Lecture Room 6 (6F)
+  Classe B → Campus Plaza, Lecture Room 5 (6F)
+
+10/07 ven  │ NIENTE SCUOLA
+
+11/07 sab  │ 6 ore  │ 9:00-11:30 / 13:00-16:30
+  Classe A → Minsai Saiin Campus, aula 2A
+  Classe B → Minsai Saiin Campus, aula 2B
+
+12/07 dom  │ 6 ore  │ 9:00-11:30 / 13:00-16:30
+  Classe A → Minsai Saiin Campus, aula 2A
+  Classe B → Minsai Saiin Campus, aula 2B
+
+RIEPILOGO SEDI:
+- Campus Plaza (giorni feriali): edificio con aule al 6° piano
+- Minsai Saiin Campus: sede principale Minsai (fine settimana)
+Indirizzo Minsai: 69 Nishikyogoku Kitaooiri-cho, Ukyo-ku, Kyoto | Tel: 075-316-0190
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SHINKANSEN - 13 LUGLIO (Kyoto → Nagoya → Tokyo)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TRATTO 1 — Kyoto → Nagoya
+  Treno:    NOZOMI 244
+  Orario:   08:54 → 09:28
+  Durata:   34 minuti
+  Carrozze: multiple (Car 14, 15 tra le prenotate)
+
+TRATTO 2 — Nagoya → Tokyo
+  Treno:    NOZOMI 406
+  Orario:   14:29 → 16:06
+  Durata:   1h 37min
+  Carrozze: multiple (Car 3, 4, 5 tra le prenotate)
+
+Nota: a Nagoya (09:28 – 14:29) visita al Castello di Nagoya e Osu Kannon.
+Arrivo a Tokyo 16:06. Sera: Tokyo Metropolitan Government Building + Shinjuku.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AVVICINAMENTI NAZIONALI - TURNO 1 (1 lug / 16 lug)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+VOLI ANDATA (1 luglio):
+  PMO→FCO  XZ2712 (Aeroitalia)  11:30→12:40  1 pax
+
+TRENI ANDATA (1 luglio) → Roma Termini:
+  Bari→Roma Termini       Frecciarossa 8306   08:40→13:15  3 pax
+  Venezia S.Lucia→Roma    Frecciarossa 9411   09:26→13:30  6 pax
+  Milano→Roma Termini     Italo 9979          11:15→14:30  4 pax
+  Bologna→Roma Termini    Italo 8902          11:42→14:05  1 pax
+  Napoli→Roma Termini     Italo 9940          13:20→14:30  7 pax
+
+VOLI RITORNO (16 luglio):
+  FCO→CAG  XZ2341 (Aeroitalia)  13:30→14:40  1 pax
+  FCO→PMO  AZ 1779 (ITA)        14:20→15:25  1 pax
+
+TRENI RITORNO (16 luglio) ← Roma Termini:
+  Roma Termini→Venezia S.Lucia  Italo 8916          12:55→16:55  6 pax
+  Roma Termini→Milano           Italo 9982          13:05→16:15  4 pax
+  Roma Termini→Bari             Frecciarossa 8311   13:15→17:43  3 pax
+  Roma Termini→Napoli           Italo 8907          13:30→14:43  7 pax
+  Roma Termini→Bologna          Italo 8134          13:40→16:03  1 pax
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 NOTE OPERATIVE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 - IACOVELLA Leonardo: parte da Roma ma rientra su Cagliari
@@ -691,6 +781,8 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "indice": 0,
             "presenti": [],
             "assenti": [],
+            "saltati": [],   # nomi saltati nel giro corrente
+            "giro": 1,
         }
         await _invia_prossimo_nome(query.message, user_id)
         return
@@ -709,43 +801,60 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
             stato["presenti"].append(nome_corrente)
         elif data == "assente":
             stato["assenti"].append(nome_corrente)
-        # "salta" non aggiunge a nessuna lista
+        elif data == "salta":
+            stato["saltati"].append(nome_corrente)  # ricordati chi hai saltato
 
         stato["indice"] += 1
 
         if stato["indice"] >= len(stato["nomi"]):
-            # Appello completato
-            gruppo = stato["gruppo"]
-            presenti = stato["presenti"]
-            assenti = stato["assenti"]
-            saltati = len(stato["nomi"]) - len(presenti) - len(assenti)
-            del appello_state[user_id]
+            saltati_rimasti = stato["saltati"]
 
-            testo = (
-                f"✅ *Appello {gruppo} completato!*\n\n"
-                f"*Presenti ({len(presenti)}):* {', '.join(presenti) if presenti else '—'}\n\n"
-                f"*Assenti ({len(assenti)}):* {', '.join(assenti) if assenti else '—'}\n"
-            )
-            if saltati:
-                testo += f"*Saltati:* {saltati}\n"
-            await query.message.reply_text(testo, parse_mode="Markdown")
+            if saltati_rimasti:
+                # Riparti con i soli saltati
+                stato["nomi"]    = saltati_rimasti.copy()
+                stato["saltati"] = []
+                stato["indice"]  = 0
+                stato["giro"]   += 1
+                avviso = (
+                    f"↩️ *Giro {stato['giro']} — Saltati ({len(saltati_rimasti)}):*\n"
+                    + "\n".join(f"• {n}" for n in saltati_rimasti)
+                )
+                await query.message.reply_text(avviso, parse_mode="Markdown")
+                await _invia_prossimo_nome(query.message, user_id)
+            else:
+                # Nessun saltato rimasto → appello completo
+                gruppo   = stato["gruppo"]
+                presenti = stato["presenti"]
+                assenti  = stato["assenti"]
+                del appello_state[user_id]
+
+                testo = (
+                    f"✅ *Appello {gruppo} completato!*\n\n"
+                    f"*Presenti ({len(presenti)}):* {', '.join(presenti) if presenti else '—'}\n\n"
+                    f"*Assenti ({len(assenti)}):* {', '.join(assenti) if assenti else '—'}\n"
+                )
+                await query.message.reply_text(testo, parse_mode="Markdown")
         else:
             await _invia_prossimo_nome(query.message, user_id)
 
 async def _invia_prossimo_nome(message, user_id: int):
     stato = appello_state[user_id]
-    idx = stato["indice"]
+    idx    = stato["indice"]
     totale = len(stato["nomi"])
-    nome = stato["nomi"][idx]
+    nome   = stato["nomi"][idx]
     gruppo = stato["gruppo"]
+    giro   = stato.get("giro", 1)
 
     keyboard = [[
         InlineKeyboardButton("✅ Presente", callback_data="presente"),
         InlineKeyboardButton("❌ Assente",  callback_data="assente"),
         InlineKeyboardButton("⏭ Salta",    callback_data="salta"),
     ]]
+    intestazione = f"{gruppo} — {idx+1}/{totale}"
+    if giro > 1:
+        intestazione += f"  ♻️ Giro {giro} (saltati)"
     await message.reply_text(
-        f"{gruppo} — {idx+1}/{totale}\n\n👤 *{nome}*",
+        f"{intestazione}\n\n👤 *{nome}*",
         reply_markup=InlineKeyboardMarkup(keyboard),
         parse_mode="Markdown"
     )

@@ -406,26 +406,26 @@ FERRARA Mattia, NAPOLETANO Rodolfo, CUCINO Francesco,
 GIORDANO Gabriele, LUCCI Christian, IACOVELLA Leonardo Xiangxing
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-ROOMING KYOTO (triple + doppie) - Oriental Hotel Kyoto Rokujo
+ROOMING KYOTO - Oriental Hotel Kyoto Rokujo (numeri camera reali)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Stanza 1:  CIMMINO Viola | DI VINCENZO Erica Marizol | GALLO Erica
-Stanza 2:  BUTTINO Desiree Fatima | MORGESE Ilaria | PIERGIACOMI Priscilla
-Stanza 3:  DI GIACOPO Lucrezia | ERCOLI Eleonora | DI GIACOPO Anastasia
-Stanza 4:  BACCARO Irene | FROSINI Ilaria | GRILLO Lucrezia
-Stanza 5:  ZOPPI Eleonora | ZOPPI Maurizio | RANISI Giulia
-Stanza 6:  BONELLI Martina | LATO Giorgia Francesca  [doppia]
-Stanza 7:  MARINO Caterina | POGGI Alice  [doppia]
-Stanza 8:  PALAZZO Giorgia | SCIALABBA Anna | MUSCAGLIONE Cecilia
-Stanza 9:  PANNACCI Cesira | CORRADINI Giordano | CORRADINI Luca
-Stanza 10: DORONZO Michele | BIFULCO Francesco Andrea | LALA Matteo
-Stanza 11: FERRARA Mattia | NAPOLETANO Rodolfo | CUCINO Francesco
-Stanza 12: GIORDANO Gabriele | LUCCI Christian | IACOVELLA Leonardo Xiangxing
-Stanza 13: VITALETTI Davide | BELLUCCI Francesco | DEL GIULIO Christian
-Stanza 14: AGOSTINI Nicolò | MACCAGNAN Tommaso | MANCINO Gianluca
-Stanza 15: FERRARI Tobia | CARBONE Francesco | MACCARRONE Francesco
-Stanza 16: TL Davide Di Stefano  [singola]
-Stanza 17: TL Francesco Chiappetta  [singola]
-Stanza 18: TL Francesca Guerrato  [singola]
+Camera 218 [tripla F]: CIMMINO Viola | DI VINCENZO Erica Marizol | GALLO Erica
+Camera 219 [tripla F]: BUTTINO Desiree Fatima | MORGESE Ilaria | PIERGIACOMI Priscilla
+Camera 340 [tripla F]: DI GIACOPO Lucrezia | ERCOLI Eleonora | DI GIACOPO Anastasia
+Camera 341 [tripla F]: BACCARO Irene | FROSINI Ilaria | GRILLO Lucrezia
+Camera 342 [tripla]:   ZOPPI Eleonora (disabile) | ZOPPI Maurizio (assist.) | RANISI Giulia (assist.)
+Camera 338 [doppia F]: BONELLI Martina | LATO Giorgia Francesca
+Camera 337 [doppia F]: MARINO Caterina | POGGI Alice (disabile)
+Camera 243 [tripla F]: PALAZZO Giorgia | SCIALABBA Anna (disabile) | MUSCAGLIONE Cecilia
+Camera 244 [tripla]:   CORRADINI Giordano (disabile) | CORRADINI Luca (assist.) | PANNACCI Cesira (assist.)
+Camera 245 [tripla M]: DORONZO Michele | BIFULCO Francesco Andrea | LALA Matteo
+Camera 246 [tripla M]: FERRARA Mattia | NAPOLETANO Rodolfo | CUCINO Francesco
+Camera 247 [tripla M]: GIORDANO Gabriele | LUCCI Christian | IACOVELLA Leonardo Xiangxing
+Camera 343 [tripla M]: VITALETTI Davide | BELLUCCI Francesco | DEL GIULIO Christian
+Camera 220 [tripla M]: AGOSTINI Nicolò | MACCAGNAN Tommaso | MANCINO Gianluca (disabile)
+Camera 221 [tripla M]: FERRARI Tobia | CARBONE Francesco | MACCARRONE Francesco (disabile)
+Camera 313 [singola]:  TL Davide Di Stefano
+Camera 314 [singola]:  TL Francesco Chiappetta
+Camera 315 [singola]:  TL Francesca Guerrato
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ROOMING TOKYO (quadruple) - Oriental Hotel Tokyo Bay

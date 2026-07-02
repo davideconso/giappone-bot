@@ -668,6 +668,68 @@ NOTE OPERATIVE
 - Modifiche a programma o rooming: lo staff le comunica via chat, il bot le registra e le riporta
 """
 
+# ─── BRIEFING ARRIVO ──────────────────────────────────────────────────────────
+BRIEFING_P1 = """🎌 *BRIEFING ARRIVO KYOTO — Giappone Discovery T1*
+
+Benvenuti in Giappone! Ora ci aspetta circa *1h30 di bus* per raggiungere l'hotel — *Oriental Hotel Kyoto Rokujo*.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚌 *ICOCA — Carta Trasporti*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Nella bustina ricevete l'*ICOCA* con *10.000 yen pre-caricati*, da usare *solo per gli spostamenti col gruppo*. Se la usate per acquisti personali ai distributori dovrete ricaricarla a vostre spese.
+
+⚠️ *NON trasferite l'ICOCA nel wallet dell'iPhone* — diventa inutilizzabile e dovrete ricomprarne una nuova.
+
+• Portatela *SEMPRE* con voi ogni volta che uscite
+• Metro/treno: *tap all\'ingresso E all\'uscita* — aspettate il *BIP*, non passate col tornello di qualcun altro
+• Sui mezzi pubblici non si parla (o sottovoce)
+• Bus: si sale da dietro, si scende da davanti. Si tappa l\'ICOCA *solo quando si scende*. Su alcuni bus vi diremo noi quando tapparla anche in salita"""
+
+BRIEFING_P2 = """━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💳 *Carta Mastercard Prepagata*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Nella bustina trovate anche la *carta prepagata Mastercard*, senza PIN — si può *solo strisciare*. Spiegalo sempre all\'esercente e provatela da entrambi i lati.
+
+• *Budget pasti: 1.400–1.500 yen a pasto*, autogestito (se a pranzo spendo 1.000, a cena posso spendere 1.800)
+• Dove accettano carta: pagate sempre con la card
+• Se viene smarrita: segnalatecelo subito
+• Saldo: *getmybalance.com*
+• Stasera vi aiutiamo a registrarla su Apple Pay / Google Pay (guida nel gruppo WhatsApp)
+• La carta rimane vostra — se avanzano soldi è spendibile anche in Italia
+
+Nella bustina c\'è anche il *braccialetto colorato* — serve per dividervi in classi a scuola e per i gruppi sui bus. Per il resto fate tutto insieme. Non scambiateveli."""
+
+BRIEFING_P3 = """━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🏨 *Hotel — Oriental Hotel Kyoto Rokujo*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Max *2 tessere magnetiche per camera* — non perdetele
+• Per salire in ascensore serve la tessera: tenetelo a mente quando uscite
+• In camera: inserite la tessera nella *fessura* vicino all\'ingresso per abilitare la corrente
+
+🚭 *VIETATO FUMARE IN CAMERA* — fee di *¥30.000* se viene rilevato odore. Si fuma solo nella *Smoking Room al Piano 1*. Anche fuori: solo nelle zone fumo segnalate vicino ai konbini.
+
+• Per la pulizia della stanza: magnete *"PLEASE MAKE MY ROOM"* fuori dalla porta la mattina
+• Bollitore, tè e caffè: gratuiti | Ciabattine e pigiami: in dotazione, *non portarli via*
+• Asciugamani, shampoo ecc.: rimangono in stanza (se mancano li addebitano)
+• *Passaporto: lasciatelo in cassaforte* fino al check-out per Tokyo
+• *Colazione:* 6:45 → 9:30
+• *Snack e bevande in lobby:* gratuiti 14:30 → 23:00
+• *Lavanderia (Piano 1):* ¥500–600 in monete da ¥100, durata ~2h — svuotate subito a fine ciclo
+• Acqua del rubinetto potabile — usate il distributore al piano terra
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🍜 *Stasera — Noodles Party*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+In lobby trovate noodles istantanei e snack. Disfate le valigie e scendete a prenderli!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📅 *Domani — Lezione di Giapponese*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+*Partenza dall\'hotel alle 8:30 puntuali.*
+Nello zaino: 📓 quaderno e penna, 🌂 mantellina/k-way + ombrello, maglia e calzini di ricambio, ICOCA sempre.
+
+Buona prima notte in Giappone\\! 🇯🇵"""
+
 # ─── STATO APPELLO ────────────────────────────────────────────────────────────
 appello_state: dict[int, dict] = {}
 # Struttura: { user_id: { "gruppo": "🔴 ROSSO", "nomi": [...], "indice": 0, "presenti": [], "assenti": [] } }
@@ -719,6 +781,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "👋 Ciao! Sono l'assistente staff *Giappone Discovery - Turno 1*.\n\n"
         "Puoi scrivermi in linguaggio libero oppure usare questi comandi:\n\n"
+        "🎌 /briefing — briefing di arrivo (ICOCA, carte, hotel, regole)\n"
         "📅 /oggi — programma e descrizione di oggi\n"
         "📢 /appello — appello presenti per colore\n"
         "📋 /modifiche — vedi le modifiche registrate\n"
@@ -743,6 +806,12 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "Oppure usa /appello per fare l'appello interattivo.",
         parse_mode="Markdown"
     )
+
+async def briefing_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not await check_auth(update):
+        return
+    for parte in [BRIEFING_P1, BRIEFING_P2, BRIEFING_P3]:
+        await update.message.reply_text(parte, parse_mode="Markdown")
 
 async def oggi_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not await check_auth(update):
@@ -1093,6 +1162,7 @@ def main():
     app.add_handler(CommandHandler("myid",     myid_command))
     app.add_handler(CommandHandler("start",    start))
     app.add_handler(CommandHandler("help",     help_command))
+    app.add_handler(CommandHandler("briefing", briefing_command))
     app.add_handler(CommandHandler("oggi",     oggi_command))
     app.add_handler(CommandHandler("appello",  appello_command))
     app.add_handler(CommandHandler("modifiche",modifiche_command))

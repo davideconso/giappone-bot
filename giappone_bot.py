@@ -912,7 +912,7 @@ async def handle_voice_note(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         # Scarica il file audio
         tg_file = await context.bot.get_file(audio_obj.file_id)
-        suffix = ".oga" if msg.voice else ".mp3"
+        suffix = ".ogg" if msg.voice else ".mp3"
         with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as tmp:
             tmp_path = tmp.name
         await tg_file.download_to_drive(tmp_path)

@@ -17,7 +17,8 @@ SETUP (TUTTO GRATIS):
 import os
 import json
 import logging
-from datetime import date
+import tempfile
+from datetime import date, datetime
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
     ApplicationBuilder, MessageHandler, CommandHandler,
@@ -26,15 +27,21 @@ from telegram.ext import (
 import anthropic
 import gspread
 from google.oauth2.service_account import Credentials
+from groq import Groq
 
 # ─── CONFIGURAZIONE ───────────────────────────────────────────────────────────
 TELEGRAM_TOKEN        = os.environ.get("TELEGRAM_TOKEN",          "INSERISCI_QUI_IL_TOKEN")
 ANTHROPIC_API_KEY     = os.environ.get("ANTHROPIC_API_KEY",       "INSERISCI_QUI_LA_API_KEY_ANTHROPIC")
+GROQ_API_KEY          = os.environ.get("GROQ_API_KEY",            "INSERISCI_QUI_LA_API_KEY_GROQ")
 GOOGLE_CREDS_JSON     = os.environ.get("GOOGLE_CREDENTIALS_JSON", "")
 ROOMING_SHEET_IDS = [
     "1kXJUY2Q51cqV1pnzfCekYVq1cXy9xcdrUJAwwWpDgkU",  # Rooming turno 1
     "1dX9ZtULby3luzCImaFL6qNsI2TuvCflKEejBgVRCMEE",  # Secondo foglio
 ]
+# ID cartella Drive staff (parent dei file rooming)
+STAFF_FOLDER_ID = "19egILoR2j5ozUtGSyMvu55EMyrSYz_oZ"
+# ID foglio diario — viene popolato automaticamente alla prima voce
+_diary_sheet_id: str = os.environ.get("DIARY_SHEET_ID", "")
 
 # ─── GOOGLE SHEETS CLIENT ─────────────────────────────────────────────────────
 def get_sheets_client():
@@ -74,6 +81,84 @@ def _conta_stanza(all_values, sec, stanza_num_str):
         if len(row) > stanza_col and row[stanza_col].strip() == stanza_num_str.strip():
             count += 1
     return count
+
+# ─── DIARIO VIAGGIO ───────────────────────────────────────────────────────────
+INIZIO_VIAGGIO = date(2026, 7, 2)   # arrivo a Kyoto
+FINE_VIAGGIO   = date(2026, 7, 16)  # rientro
+
+def _citta_oggi() -> str:
+    oggi = date.today()
+    if oggi < date(2026, 7, 13):
+        return "Kyoto"
+    elif oggi <= date(2026, 7, 15):
+        return "Tokyo"
+    return "—"
+
+def _giorno_viaggio() -> int:
+    delta = (date.today() - INIZIO_VIAGGIO).days + 1
+    return max(1, min(delta, 15))
+
+def get_or_create_diary_sheet() -> gspread.Spreadsheet:
+    """Restituisce il foglio diario; lo crea se non esiste ancora."""
+    global _diary_sheet_id
+    gc = get_sheets_client()
+    if _diary_sheet_id:
+        return gc.open_by_key(_diary_sheet_id)
+    # Crea il foglio nella cartella staff
+    sh = gc.create("Diario Viaggio — Giappone Discovery T1")
+    sh.client.insert_permission(sh.id, None, perm_type="anyone", role="writer")
+    # Sposta nella cartella staff tramite Drive API
+    import googleapiclient.discovery
+    creds_dict = json.loads(GOOGLE_CREDS_JSON)
+    creds = Credentials.from_service_account_info(
+        creds_dict,
+        scopes=[
+            "https://spreadsheets.google.com/feeds",
+            "https://www.googleapis.com/auth/drive",
+        ]
+    )
+    drive_svc = googleapiclient.discovery.build("drive", "v3", credentials=creds)
+    f = drive_svc.files().get(fileId=sh.id, fields="parents").execute()
+    prev_parents = ",".join(f.get("parents", []))
+    drive_svc.files().update(
+        fileId=sh.id,
+        addParents=STAFF_FOLDER_ID,
+        removeParents=prev_parents,
+        fields="id, parents"
+    ).execute()
+    # Intestazione
+    ws = sh.sheet1
+    ws.update_title("Diario")
+    ws.append_row(["#", "Data", "Ora", "Giorno", "Città", "Mittente", "Trascrizione", "Note"])
+    ws.format("A1:H1", {"textFormat": {"bold": True}})
+    _diary_sheet_id = sh.id
+    logging.info(f"Diario creato: https://docs.google.com/spreadsheets/d/{sh.id}")
+    return sh
+
+def salva_nel_diario(mittente: str, testo: str, note: str = "") -> str:
+    """Aggiunge una riga al foglio diario e restituisce il link."""
+    try:
+        sh = get_or_create_diary_sheet()
+        ws = sh.sheet1
+        ora_it = datetime.now().strftime("%H:%M")
+        data_it = datetime.now().strftime("%d/%m/%Y")
+        n_righe = len(ws.get_all_values())  # include header
+        riga = [n_righe, data_it, ora_it, _giorno_viaggio(), _citta_oggi(), mittente, testo, note]
+        ws.append_row(riga)
+        return f"https://docs.google.com/spreadsheets/d/{_diary_sheet_id}"
+    except Exception as e:
+        return f"ERRORE: {e}"
+
+def trascrivi_audio(percorso: str) -> str:
+    """Trascrive un file audio con Groq Whisper."""
+    client = Groq(api_key=GROQ_API_KEY)
+    with open(percorso, "rb") as f:
+        result = client.audio.transcriptions.create(
+            model="whisper-large-v3",
+            file=f,
+            language="it"
+        )
+    return result.text.strip()
 
 def sposta_in_sheet(cognome: str, nome: str, nuova_stanza: str) -> str:
     """
@@ -784,6 +869,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🎌 /briefing — briefing di arrivo (ICOCA, carte, hotel, regole)\n"
         "📅 /oggi — programma e descrizione di oggi\n"
         "📢 /appello — appello presenti per colore\n"
+        "🎙️ _Vocale_ — trascrive e salva nel diario viaggio\n"
+        "📖 /diario — ultime voci del diario\n"
         "📋 /modifiche — vedi le modifiche registrate\n"
         "❓ /help — esempi di domande\n"
         "🔄 /reset — cancella cronologia chat",
@@ -812,6 +899,62 @@ async def briefing_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
     for parte in [BRIEFING_P1, BRIEFING_P2, BRIEFING_P3]:
         await update.message.reply_text(parte, parse_mode="Markdown")
+
+async def handle_voice_note(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Riceve un vocale/audio, lo trascrive con Groq Whisper e lo salva nel diario."""
+    if not await check_auth(update):
+        return
+    msg = update.message
+    audio_obj = msg.voice or msg.audio
+    if not audio_obj:
+        return
+    await msg.reply_text("🎙️ Sto trascrivendo il vocale…")
+    try:
+        # Scarica il file audio
+        tg_file = await context.bot.get_file(audio_obj.file_id)
+        suffix = ".oga" if msg.voice else ".mp3"
+        with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as tmp:
+            tmp_path = tmp.name
+        await tg_file.download_to_drive(tmp_path)
+        # Trascrizione
+        testo = trascrivi_audio(tmp_path)
+        os.remove(tmp_path)
+        # Mittente
+        user = msg.from_user
+        mittente = f"{user.first_name or ''} {user.last_name or ''}".strip() or user.username or str(user.id)
+        # Salva nel diario
+        link = salva_nel_diario(mittente, testo)
+        risposta = (
+            f"✅ *Vocale trascritto e salvato nel diario* (Giorno {_giorno_viaggio()} — {_citta_oggi()})\n\n"
+            f"📝 _{testo}_\n\n"
+            f"📊 [Apri il diario]({link})"
+        )
+        await msg.reply_text(risposta, parse_mode="Markdown")
+    except Exception as e:
+        await msg.reply_text(f"❌ Errore durante la trascrizione: {e}")
+
+async def diario_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Mostra le ultime 10 voci del diario."""
+    if not await check_auth(update):
+        return
+    try:
+        sh = get_or_create_diary_sheet()
+        ws = sh.sheet1
+        rows = ws.get_all_values()
+        if len(rows) <= 1:
+            await update.message.reply_text("📖 Il diario è ancora vuoto. Manda un vocale per iniziare!")
+            return
+        # Ultime 10 voci (escludi header)
+        ultime = rows[1:][-10:]
+        testo = f"📖 *Diario Viaggio — ultime {len(ultime)} voci:*\n\n"
+        for r in ultime:
+            n, data, ora, giorno, citta, mittente, trascrizione, *_ = r + [""] * 8
+            testo += f"*G{giorno} — {citta}* | {data} {ora} | _{mittente}_\n{trascrizione[:200]}{'…' if len(trascrizione) > 200 else ''}\n\n"
+        link = f"https://docs.google.com/spreadsheets/d/{_diary_sheet_id}"
+        testo += f"[📊 Foglio completo]({link})"
+        await update.message.reply_text(testo, parse_mode="Markdown")
+    except Exception as e:
+        await update.message.reply_text(f"❌ Errore: {e}")
 
 async def oggi_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not await check_auth(update):
@@ -1165,12 +1308,14 @@ def main():
     app.add_handler(CommandHandler("briefing", briefing_command))
     app.add_handler(CommandHandler("oggi",     oggi_command))
     app.add_handler(CommandHandler("appello",  appello_command))
+    app.add_handler(CommandHandler("diario",   diario_command))
     app.add_handler(CommandHandler("modifiche",modifiche_command))
     app.add_handler(CommandHandler("compleanni", compleanni_command))
     app.add_handler(CommandHandler("sposta",     sposta_command))
     app.add_handler(CommandHandler("scambia",    scambia_command))
     app.add_handler(CommandHandler("reset",    reset))
     app.add_handler(CallbackQueryHandler(handle_callback))
+    app.add_handler(MessageHandler(filters.VOICE | filters.AUDIO, handle_voice_note))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
     logger.info("🤖 Bot avviato.")

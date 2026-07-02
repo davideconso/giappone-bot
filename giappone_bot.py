@@ -494,9 +494,9 @@ GIORDANO Gabriele, LUCCI Christian, IACOVELLA Leonardo Xiangxing
 ROOMING KYOTO - Oriental Hotel Kyoto Rokujo (numeri camera reali)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Camera 218 [tripla F]: CIMMINO Viola | DI VINCENZO Erica Marizol | GALLO Erica
-Camera 219 [tripla F]: BUTTINO Desiree Fatima | MORGESE Ilaria | PIERGIACOMI Priscilla
-Camera 340 [tripla F]: DI GIACOPO Lucrezia | ERCOLI Eleonora | DI GIACOPO Anastasia
-Camera 341 [tripla F]: BACCARO Irene | FROSINI Ilaria | GRILLO Lucrezia
+Camera 219 [tripla F]: BUTTINO Desiree Fatima | FROSINI Ilaria | DI GIACOPO Lucrezia
+Camera 340 [tripla F]: PIERGIACOMI Priscilla | ERCOLI Eleonora | DI GIACOPO Anastasia
+Camera 341 [tripla F]: BACCARO Irene | MORGESE Ilaria | GRILLO Lucrezia
 Camera 342 [tripla]:   ZOPPI Eleonora (disabile) | ZOPPI Maurizio (assist.) | RANISI Giulia (assist.)
 Camera 338 [doppia F]: BONELLI Martina | LATO Giorgia Francesca
 Camera 337 [doppia F]: MARINO Caterina | POGGI Alice (disabile)
@@ -526,7 +526,7 @@ Stanza 8:  DORONZO Michele | BIFULCO Francesco Andrea | LALA Matteo | FERRARA Ma
 Stanza 9:  NAPOLETANO Rodolfo | CUCINO Francesco | GIORDANO Gabriele | LUCCI Christian
 Stanza 10: IACOVELLA Leonardo Xiangxing | VITALETTI Davide | BELLUCCI Francesco | DEL GIULIO Christian
 Stanza 11: AGOSTINI Nicolò | MACCAGNAN Tommaso | MANCINO Gianluca | FERRARI Tobia
-Stanza 12: CARBONE Francesco | MACCARRONE Francesco
+Stanza 14: CARBONE Francesco | MACCARRONE Francesco
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 INFO MEDICHE

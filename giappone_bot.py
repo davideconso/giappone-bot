@@ -494,13 +494,13 @@ GIORDANO Gabriele, LUCCI Christian, IACOVELLA Leonardo Xiangxing
 ROOMING KYOTO - Oriental Hotel Kyoto Rokujo (numeri camera reali)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Camera 218 [tripla F]: CIMMINO Viola | DI VINCENZO Erica Marizol | GALLO Erica
-Camera 219 [tripla F]: BUTTINO Desiree Fatima | FROSINI Ilaria | DI GIACOPO Lucrezia
-Camera 340 [tripla F]: PIERGIACOMI Priscilla | ERCOLI Eleonora | DI GIACOPO Anastasia
+Camera 219 [tripla F]: BUTTINO Desiree Fatima | MUSCAGLIONE Cecilia | DI GIACOPO Lucrezia
+Camera 340 [tripla F]: PIERGIACOMI Priscilla | SCIALABBA Anna (disabile) | DI GIACOPO Anastasia
 Camera 341 [tripla F]: BACCARO Irene | MORGESE Ilaria | GRILLO Lucrezia
 Camera 342 [tripla]:   ZOPPI Eleonora (disabile) | ZOPPI Maurizio (assist.) | RANISI Giulia (assist.)
 Camera 338 [doppia F]: BONELLI Martina | LATO Giorgia Francesca
 Camera 337 [doppia F]: MARINO Caterina | POGGI Alice (disabile)
-Camera 243 [tripla F]: PALAZZO Giorgia | SCIALABBA Anna (disabile) | MUSCAGLIONE Cecilia
+Camera 243 [tripla F]: PALAZZO Giorgia | ERCOLI Eleonora | FROSINI Ilaria
 Camera 244 [tripla]:   CORRADINI Giordano (disabile) | CORRADINI Luca (assist.) | PANNACCI Cesira (assist.)
 Camera 245 [tripla M]: DORONZO Michele | BIFULCO Francesco Andrea | LALA Matteo
 Camera 246 [tripla M]: FERRARA Mattia | NAPOLETANO Rodolfo | CUCINO Francesco

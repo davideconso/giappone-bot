@@ -346,12 +346,12 @@ GRUPPI = {
         "BACCARO Irene", "FROSINI Ilaria", "GRILLO Lucrezia",
         "VITALETTI Davide", "BELLUCCI Francesco", "DEL GIULIO Christian",
         "AGOSTINI Nicolò", "MACCAGNAN Tommaso", "MANCINO Gianluca",
-        "FERRARI Tobia", "CARBONE Francesco", "MACCARRONE Francesco",
+        "PALAZZO Giorgia", "CARBONE Francesco", "MACCARRONE Francesco",
     ],
     "🔵 AZZURRO": [
         "ZOPPI Eleonora", "RANISI Giulia", "ZOPPI Maurizio",
         "BONELLI Martina", "LATO Giorgia Francesca", "MARINO Caterina", "POGGI Alice",
-        "PALAZZO Giorgia", "SCIALABBA Anna", "MUSCAGLIONE Cecilia",
+        "FERRARI Tobia", "SCIALABBA Anna", "MUSCAGLIONE Cecilia",
         "PANNACCI Cesira", "CORRADINI Giordano", "CORRADINI Luca",
         "DORONZO Michele", "BIFULCO Francesco Andrea", "LALA Matteo",
         "FERRARA Mattia", "NAPOLETANO Rodolfo", "CUCINO Francesco",
@@ -494,20 +494,20 @@ GIORDANO Gabriele, LUCCI Christian, IACOVELLA Leonardo Xiangxing
 ROOMING KYOTO - Oriental Hotel Kyoto Rokujo (numeri camera reali)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Camera 218 [tripla F]: CIMMINO Viola | DI VINCENZO Erica Marizol | GALLO Erica
-Camera 219 [tripla F]: BUTTINO Desiree Fatima | MUSCAGLIONE Cecilia | DI GIACOPO Lucrezia
-Camera 340 [tripla F]: PIERGIACOMI Priscilla | SCIALABBA Anna (disabile) | DI GIACOPO Anastasia
+Camera 219 [tripla F]: BUTTINO Desiree Fatima | DI GIACOPO Anastasia | DI GIACOPO Lucrezia
+Camera 340 [tripla F]: PIERGIACOMI Priscilla | SCIALABBA Anna (disabile) | MUSCAGLIONE Cecilia
 Camera 341 [tripla F]: BACCARO Irene | MORGESE Ilaria | GRILLO Lucrezia
 Camera 342 [tripla]:   ZOPPI Eleonora (disabile) | ZOPPI Maurizio (assist.) | RANISI Giulia (assist.)
 Camera 338 [doppia F]: BONELLI Martina | LATO Giorgia Francesca
 Camera 337 [doppia F]: MARINO Caterina | POGGI Alice (disabile)
 Camera 243 [tripla F]: PALAZZO Giorgia | ERCOLI Eleonora | FROSINI Ilaria
 Camera 244 [tripla]:   CORRADINI Giordano (disabile) | CORRADINI Luca (assist.) | PANNACCI Cesira (assist.)
-Camera 245 [tripla M]: DORONZO Michele | BIFULCO Francesco Andrea | LALA Matteo
+Camera 245 [tripla M]: IACOVELLA Leonardo Xiangxing | BIFULCO Francesco Andrea | LALA Matteo
 Camera 246 [tripla M]: FERRARA Mattia | NAPOLETANO Rodolfo | CUCINO Francesco
-Camera 247 [tripla M]: GIORDANO Gabriele | LUCCI Christian | IACOVELLA Leonardo Xiangxing
-Camera 343 [tripla M]: VITALETTI Davide | BELLUCCI Francesco | DEL GIULIO Christian
+Camera 247 [tripla M]: GIORDANO Gabriele | DEL GIULIO Christian | FERRARI Tobia
+Camera 343 [tripla M]: VITALETTI Davide | BELLUCCI Francesco | LUCCI Christian
 Camera 220 [tripla M]: AGOSTINI Nicolò | MACCAGNAN Tommaso | MANCINO Gianluca (disabile)
-Camera 221 [tripla M]: FERRARI Tobia | CARBONE Francesco | MACCARRONE Francesco (disabile)
+Camera 221 [tripla M]: DORONZO Michele | CARBONE Francesco | MACCARRONE Francesco (disabile)
 Camera 313 [singola]:  TL Davide Di Stefano
 Camera 314 [singola]:  TL Francesco Chiappetta
 Camera 315 [singola]:  TL Francesca Guerrato

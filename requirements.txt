@@ -1,7 +1,6 @@
-python-telegram-bot==21.6
-anthropic==0.40.0
-httpx==0.27.2
-gspread==6.1.2
-google-auth==2.35.0
-google-api-python-client==2.131.0
-groq==0.9.0
+python-telegram-bot==21.10
+anthropic
+groq
+gspread
+google-auth
+google-api-python-client

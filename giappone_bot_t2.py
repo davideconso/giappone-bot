@@ -265,16 +265,20 @@ TOKYO (26→28/07): Oriental Hotel Tokyo Bay — 1-8-2 Mihama, Urayasu, Chiba
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ROOMING KYOTO (triple/doppie) - Oriental Hotel Kyoto Rokujo
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Stanza 1 [F]: ALONZI Chiara | ALONZI Giulia | RICCIARDI Rosa
-Stanza 2 [F]: COSENZA Anna | DE CARO Arianna | DE LUCIA Maddalena
-Stanza 3 [F]: FERRI Beatrice | FRAU Ludovica | LO PORTO Giulia
-Stanza 4 [F]: MACALUSO Noemi | MALATIA Teresa | MINELLI Margherita
-Stanza 5 [F, doppia]: SABATINI Agnese | SCANDINO Amelia
-Stanza 6 [F, doppia]: DE FAZIO Sara | VITALE Dafne
-Stanza 7 [M]: ATTANASIO Matteo | CARUSO Giulio | CHIOCCA Pasquale Alessandro
-Stanza 8 [M]: DOLCE Riccardo | GUERRIERO Paolo | SAVIANO Michele
-Stanza 9 [M]: NUCCIO Alessandro Maria | PAGANO Mario | PALA Riccardo
-Stanza 10 [M]: VILLANO Francesco Pio | PALOMBA Giuseppe | SCANDINO Raffaele
+Camera 202 [tripla F]: ALONZI Chiara | ALONZI Giulia | MINELLI Margherita
+Camera 203 [tripla F]: COSENZA Anna | DE CARO Arianna | DE LUCIA Maddalena
+Camera 204 [tripla F]: FERRI Beatrice | FRAU Ludovica | LO PORTO Giulia
+Camera 205 [tripla F]: MACALUSO Noemi | MALATIA Teresa | RICCIARDI Rosa
+Camera 220 [doppia F]: SABATINI Agnese | SCANDINO Amelia
+Camera 221 [doppia F]: DE FAZIO Sara | VITALE Dafne
+Camera 206 [tripla M]: ATTANASIO Matteo | CARUSO Giulio | VILLANO Francesco Pio
+Camera 207 [tripla M]: DOLCE Riccardo | GUERRIERO Paolo | SAVIANO Michele
+Camera 218 [tripla M]: NUCCIO Alessandro Maria | PAGANO Mario | PALA Riccardo
+Camera 219 [tripla M]: CHIOCCA Pasquale Alessandro | PALOMBA Giuseppe | SCANDINO Raffaele
+Camera 413 [singola]: TL MARMAGLIO Paolo
+Camera 414 [singola]: TL PERSICO Salvatore
+Camera 412 [singola]: TL GUERRATO Francesca
+(Numeri di camera reali aggiornati al 16/07; scambi Ricciardi↔Minelli e Chiocca↔Villano rispetto al foglio iniziale)
 TL: MARMAGLIO Paolo, PERSICO Salvatore, GUERRATO Francesca (singole)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

@@ -35,9 +35,9 @@ TELEGRAM_TOKEN        = os.environ.get("TELEGRAM_TOKEN",          "INSERISCI_QUI
 ANTHROPIC_API_KEY     = os.environ.get("ANTHROPIC_API_KEY",       "INSERISCI_QUI_LA_API_KEY_ANTHROPIC")
 GROQ_API_KEY          = os.environ.get("GROQ_API_KEY",            "INSERISCI_QUI_LA_API_KEY_GROQ")
 GOOGLE_CREDS_JSON     = os.environ.get("GOOGLE_CREDENTIALS_JSON", "")
-# Rooming T3 (da convertire in Google Sheet condiviso col service account, come per il T2)
+# Rooming T3 (Google Sheet, sola lettura)
 ROOMING_SHEET_IDS: list[str] = [
-    # "INSERIRE_ID_GOOGLE_SHEET_ROOMING_T3",
+    "1PpNCHvUtYKTSB30r1ckWaOUEYlkL8HWSAehP-w1P5ds",  # Rooming turno 3
 ]
 # Cartella Drive Turno 3
 STAFF_FOLDER_ID = "1SP_xHxhoJXVtzYuXJ1_Q5bBb3uuRFjJ6"

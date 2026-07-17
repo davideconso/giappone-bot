@@ -8,7 +8,9 @@ SETUP:
    GOOGLE_CREDENTIALS_JSON, (opz.) DIARY_SHEET_ID
 3. Avvio: python giappone_bot_t3.py
 
-NOTA T3: come T2, niente gruppi colore — braccialetti tutti verdi, appello unico.
+NOTA T3: a differenza del T2, qui ci sono DUE gruppi colore (BLU e ROSSI),
+che coincidono con le due classi di scuola. L'appello chiede di scegliere
+il gruppo prima di partire (come nel Turno 1).
 Partenze da Roma FCO e Milano MXP (con avvicinamenti da Bari, Catania, Napoli,
 Palermo, Bologna, Venezia, Alghero). Gruppo grande: 54 partecipanti + 3 TL
 (+ 1 TL in prosecuzione dal Turno 2).
@@ -139,38 +141,33 @@ async def check_auth(update: Update) -> bool:
         return False
     return True
 
-# ─── GRUPPO UNICO (T3: braccialetti tutti VERDI, nessuna divisione colore) ────
-PARTECIPANTI_T3 = [
-    # BARI (12)
-    "ANCONA Alessandro", "ANSANI Antonio Zhelyazko", "BIANCO Riccardo",
-    "BONASIA Ilaria", "DE BRACO Maria Rita", "DELLI CARRI Maria",
-    "FACCILONGO Mariachiara", "LOJACONO Silvia", "MARINELLI Egle",
-    "PALMERI Federico", "VERRIELLO Giovanni", "ZOPPI Aurora",
-    # BOLOGNA (1)
-    "MILLI Nicholas",
-    # CATANIA (5)
-    "CLEMENTI Aurelio Rosario", "COSTA Aurora", "GENOVESE Andrea",
-    "LO BARTOLO Carola Maria", "RIGGI Giorgia",
-    # NAPOLI (4)
-    "D'ANIELLO Giulia", "D'ORTA Martina", "DELLA GATTA Salvatore", "ROSSI Martina",
-    # PALERMO (3)
-    "BURRIESCI Giuliana", "LO BAIDO Vittoria", "TARGIA Francesco",
-    # ROMA (15)
-    "ADDESSE Damiano", "CAPRIOTTI Vittoria", "DI GIORGIO Sofia",
-    "DI PAOLO Christian", "DI VICO Flavia", "LA VECCHIA Antonio",
-    "LUCIOLI Maria Vittoria", "MAFFIA Simone", "PIANESE Francesca",
-    "PISANO Raffaele", "PIZZUTO Oscar", "PRACILIO Giulio",
-    "SPINA Daniele", "SPINA Martina", "VECCHIOTTI Guenda",
-    # MILANO (9)
-    "BARBAGALLO Fabrizio", "CARULLI Roberto Maria", "COCCO Asia",
-    "COSTA Angela", "DE ANGELIS Lavinia", "GENTILE Damiano",
-    "MANNAI Eleonora", "OTERI Gianluca", "SPADARO Alessandro",
-    # VENEZIA (4)
-    "PASCOLI Emma", "PASCOLI Sofia", "PIAZZO Chiara", "TORRICELLI Alessandro",
-    # ALGHERO (1)
-    "GARAU Gabriele",
-]
-GRUPPI = {"🟢 VERDE (tutti)": PARTECIPANTI_T3}
+# ─── GRUPPI COLORE (T3: braccialetti BLU e ROSSI — corrispondono alle 2 classi scuola) ──
+GRUPPI = {
+    "🔵 BLU": [
+        "DE BRACO Maria Rita", "FACCILONGO Mariachiara", "ZOPPI Aurora",
+        "DELLI CARRI Maria", "BONASIA Ilaria", "LOJACONO Silvia",
+        "COCCO Asia", "MANNAI Eleonora", "COSTA Angela",
+        "MARINELLI Egle", "BURRIESCI Giuliana", "LO BAIDO Vittoria",
+        "BARBAGALLO Fabrizio", "CARULLI Roberto Maria", "GENTILE Damiano",
+        "OTERI Gianluca", "SPADARO Alessandro", "DELLA GATTA Salvatore",
+        "TARGIA Francesco", "ADDESSE Damiano", "MAFFIA Simone",
+        "DI PAOLO Christian", "LA VECCHIA Antonio", "SPINA Daniele",
+        "PISANO Raffaele", "PIZZUTO Oscar", "PRACILIO Giulio",
+    ],
+    "🔴 ROSSI": [
+        "COSTA Aurora", "LO BARTOLO Carola Maria", "RIGGI Giorgia",
+        "D'ANIELLO Giulia", "D'ORTA Martina", "ROSSI Martina",
+        "DI GIORGIO Sofia", "LUCIOLI Maria Vittoria", "SPINA Martina",
+        "DI VICO Flavia", "PIANESE Francesca", "VECCHIOTTI Guenda",
+        "PASCOLI Emma", "PASCOLI Sofia",
+        "CAPRIOTTI Vittoria", "DE ANGELIS Lavinia",
+        "GARAU Gabriele", "ANCONA Alessandro", "ANSANI Antonio Zhelyazko",
+        "BIANCO Riccardo", "PALMERI Federico", "VERRIELLO Giovanni",
+        "MILLI Nicholas", "CLEMENTI Aurelio Rosario", "GENOVESE Andrea",
+        "PIAZZO Chiara", "TORRICELLI Alessandro",
+    ],
+}
+PARTECIPANTI_T3 = GRUPPI["🔵 BLU"] + GRUPPI["🔴 ROSSI"]
 
 # ─── PROGRAMMA GIORNALIERO T3 ─────────────────────────────────────────────────
 PROGRAMMA = {
@@ -265,8 +262,27 @@ Date: 16 luglio 2026 → 31 luglio 2026 (arrivo Osaka 17/07, rientro Italia 31/0
 Partecipanti: 54 ragazzi/assistenti + 3 TL = 57 pax (+ 1 TL, Francesca Guerrato, in prosecuzione dal Turno 2)
 TL Staff: Gabriella Manno, Giulia Carbone, Matteo Filippini (+ Francesca Guerrato in prosecuzione)
 Assistenza voli/treni (solo mattina partenze) WhatsApp Francesca: +39 349 871 0515
-Braccialetti: TUTTI VERDI — nessuna divisione in gruppi colore (le "classi" Rossi/Blu sono solo i due gruppi-scuola, non colori braccialetto).
+Braccialetti/gruppi: DUE gruppi colore, che coincidono con le due classi di scuola — 🔵 BLU (27 persone) e 🔴 ROSSI (27 persone). Non c'è un terzo colore/gruppo unico.
 Gruppo grande: due punti di partenza principali (Roma Fiumicino e Milano Malpensa) con avvicinamenti da Bari, Catania, Napoli, Palermo, Bologna, Venezia, Alghero.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+GRUPPI COLORE / SCUOLA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔵 BLU (27 persone — stanze Kyoto 1,2,3,4,14,15,16,17,18):
+DE BRACO Maria Rita, FACCILONGO Mariachiara, ZOPPI Aurora, DELLI CARRI Maria, BONASIA Ilaria, LOJACONO Silvia,
+COCCO Asia, MANNAI Eleonora, COSTA Angela, MARINELLI Egle, BURRIESCI Giuliana, LO BAIDO Vittoria,
+BARBAGALLO Fabrizio, CARULLI Roberto Maria, GENTILE Damiano, OTERI Gianluca, SPADARO Alessandro, DELLA GATTA Salvatore,
+TARGIA Francesco, ADDESSE Damiano, MAFFIA Simone, DI PAOLO Christian, LA VECCHIA Antonio, SPINA Daniele,
+PISANO Raffaele, PIZZUTO Oscar, PRACILIO Giulio
+
+🔴 ROSSI (27 persone — stanze Kyoto 5,6,7,8,9,10,11,12,13,19):
+COSTA Aurora, LO BARTOLO Carola Maria, RIGGI Giorgia, D'ANIELLO Giulia, D'ORTA Martina, ROSSI Martina,
+DI GIORGIO Sofia, LUCIOLI Maria Vittoria, SPINA Martina, DI VICO Flavia, PIANESE Francesca, VECCHIOTTI Guenda,
+PASCOLI Emma, PASCOLI Sofia, CAPRIOTTI Vittoria, DE ANGELIS Lavinia, GARAU Gabriele, ANCONA Alessandro,
+ANSANI Antonio Zhelyazko, BIANCO Riccardo, PALMERI Federico, VERRIELLO Giovanni, MILLI Nicholas,
+CLEMENTI Aurelio Rosario, GENOVESE Andrea, PIAZZO Chiara, TORRICELLI Alessandro
+
+I gruppi BLU/ROSSI valgono sia per il braccialetto/appello sia per le classi di scuola (stessa divisione).
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 VOLI - TURKISH AIRLINES
@@ -380,7 +396,7 @@ Saldo carta: getmybalance.com
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 SCUOLA DI GIAPPONESE - Kyoto Minsai (Group 3, max 51 studenti, 2 classi: ROSSI e BLU)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Nota: "Rossi" e "Blu" sono i nomi delle due classi/aule, NON hanno relazione con i braccialetti (tutti verdi).
+Nota: "Rossi" e "Blu" sono i nomi delle due classi/aule E COINCIDONO con i due gruppi/braccialetti colore usati per l'appello.
 18/07 sab │ 6 ore │ 9:00-11:30 / 13:00-16:30 │ Minsai Saiin Campus (Rossi: aula 2C, Blu: aula 2F)
 19/07 dom │ NIENTE SCUOLA (Osaka)
 20/07 lun │ NIENTE SCUOLA (Uji + Nara, tutto il gruppo insieme)
@@ -441,7 +457,7 @@ Nella bustina trovate anche la *carta prepagata Mastercard*, senza PIN — si pu
 • Stasera vi aiutiamo a registrarla su Apple Pay / Google Pay (guida nel gruppo WhatsApp)
 • La carta rimane vostra — se avanzano soldi è spendibile anche in Italia
 
-Nella bustina c'è anche il *braccialetto verde* — quest'anno siamo un gruppo unico, tenetelo al polso: serve a riconoscervi nei luoghi affollati. Non toglietevelo. Le due classi (Rossi/Blu) valgono solo per la scuola, non per il resto del programma."""
+Nella bustina c'è anche il *braccialetto colorato* (🔵 blu o 🔴 rosso) — il colore indica il tuo gruppo, lo stesso della tua classe di scuola. Tenetelo sempre al polso: serve per l'appello e per riconoscervi nei luoghi affollati. Non scambiatevelo con altri!"""
 
 BRIEFING_P3 = """━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🏨 *Hotel — Oriental Hotel Kyoto Rokujo*
@@ -586,7 +602,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "Puoi scrivermi in linguaggio libero oppure usare questi comandi:\n\n"
         "🎌 /briefing — briefing di arrivo (ICOCA, carte, hotel, regole)\n"
         "📅 /oggi — programma e descrizione di oggi\n"
-        "📢 /appello — appello del gruppo (tutti verdi)\n"
+        "📢 /appello — appello per gruppo colore (BLU o ROSSI)\n"
         "🎂 /compleanni — compleanni durante il turno\n"
         "🎙️ _Vocale_ — trascrive e salva nel diario viaggio\n"
         "📖 /diario — ultime voci del diario\n"
@@ -643,30 +659,38 @@ async def reset(update: Update, context: ContextTypes.DEFAULT_TYPE):
     appello_state.pop(user_id, None)
     await update.message.reply_text("✅ Cronologia cancellata.")
 
-# ─── APPELLO (gruppo unico) ───────────────────────────────────────────────────
+# ─── APPELLO (due gruppi: BLU e ROSSI, corrispondenti alle classi scuola) ─────
 async def appello_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not await check_auth(update):
         return
-    user_id = update.effective_user.id
-    appello_state[user_id] = {
-        "gruppo": "🟢 VERDE (tutti)",
-        "nomi": PARTECIPANTI_T3.copy(),
-        "indice": 0,
-        "presenti": [],
-        "assenti": [],
-        "saltati": [],
-        "giro": 1,
-    }
+    keyboard = [
+        [InlineKeyboardButton(f"🔵 BLU ({len(GRUPPI['🔵 BLU'])} persone)", callback_data="appello_BLU")],
+        [InlineKeyboardButton(f"🔴 ROSSI ({len(GRUPPI['🔴 ROSSI'])} persone)", callback_data="appello_ROSSI")],
+    ]
     await update.message.reply_text(
-        f"📢 *Appello — gruppo unico ({len(PARTECIPANTI_T3)} persone)*",
+        "📢 *Appello* — Seleziona il gruppo:",
+        reply_markup=InlineKeyboardMarkup(keyboard),
         parse_mode="Markdown")
-    await _invia_prossimo_nome(update.message, user_id)
 
 async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
     user_id = query.from_user.id
     data = query.data
+
+    if data.startswith("appello_"):
+        colore = "🔵 BLU" if "BLU" in data else "🔴 ROSSI"
+        appello_state[user_id] = {
+            "gruppo": colore,
+            "nomi": GRUPPI[colore].copy(),
+            "indice": 0,
+            "presenti": [],
+            "assenti": [],
+            "saltati": [],
+            "giro": 1,
+        }
+        await _invia_prossimo_nome(query.message, user_id)
+        return
 
     if data in ("presente", "assente", "salta"):
         stato = appello_state.get(user_id)
@@ -698,11 +722,12 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 await query.message.reply_text(avviso, parse_mode="Markdown")
                 await _invia_prossimo_nome(query.message, user_id)
             else:
+                gruppo   = stato["gruppo"]
                 presenti = stato["presenti"]
                 assenti  = stato["assenti"]
                 del appello_state[user_id]
                 testo = (
-                    f"✅ *Appello completato!*\n\n"
+                    f"✅ *Appello {gruppo} completato!*\n\n"
                     f"*Presenti ({len(presenti)}):* {', '.join(presenti) if presenti else '—'}\n\n"
                     f"*Assenti ({len(assenti)}):* {', '.join(assenti) if assenti else '—'}\n")
                 await query.message.reply_text(testo, parse_mode="Markdown")
@@ -714,6 +739,7 @@ async def _invia_prossimo_nome(message, user_id: int):
     idx    = stato["indice"]
     totale = len(stato["nomi"])
     nome   = stato["nomi"][idx]
+    gruppo = stato["gruppo"]
     giro   = stato.get("giro", 1)
 
     keyboard = [[
@@ -721,7 +747,7 @@ async def _invia_prossimo_nome(message, user_id: int):
         InlineKeyboardButton("❌ Assente",  callback_data="assente"),
         InlineKeyboardButton("⏭ Salta",    callback_data="salta"),
     ]]
-    intestazione = f"🟢 — {idx+1}/{totale}"
+    intestazione = f"{gruppo} — {idx+1}/{totale}"
     if giro > 1:
         intestazione += f"  ♻️ Giro {giro} (saltati)"
     await message.reply_text(
